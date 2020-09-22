@@ -21,6 +21,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  flutter_dialogflow: ^0.1.0
   flutter:
     sdk: flutter
   provider: ^3.0.0+1
@@ -74,7 +75,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:   #json 파일가져와서 API 연동해야됨
-    #- assets/agomin-cyws-55efe8b61e18.json
+    - assets/agomin-cyws-55efe8b61e18.json
     - assets/agomin.jpg
     - assets/loading.gif
     - assets/logo.jpg
