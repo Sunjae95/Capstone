@@ -14,30 +14,6 @@ class AuthPage extends StatelessWidget {
       TextEditingController(); // 컨트롤러를 가지고 텍스트를 가지고 올수있음
   final TextEditingController _passwordController = TextEditingController();
 
-//  bool _initialized = false;
-//   bool _error = false;
-
-//   // Define an async function to initialize FlutterFire
-//   void initializeFlutterFire() async {
-//     try {
-//       // Wait for Firebase to initialize and set `_initialized` state to true
-//       await Firebase.initializeApp();
-//       setState(() {
-//         _initialized = true;
-//       });
-//     } catch(e) {
-//       // Set `_error` state to true if Firebase initialization fails
-//       setState(() {
-//         _error = true;
-//       });
-//     }
-//   }
-
-//   @override
-//   void initState() {
-//     initializeFlutterFire();
-//     super.initState();
-//   }
 
   @override
   Widget build(BuildContext context) {

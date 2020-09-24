@@ -23,6 +23,7 @@ class Splash extends StatelessWidget {
     // TODO: implement build
     // ignore: deprecated_member_use
     return StreamBuilder<User>(
+        //stream으로 통신함
         // ignore: deprecated_member_use
         stream: FirebaseAuth.instance.onAuthStateChanged,
         builder: (context, snapshot) {
@@ -156,6 +157,15 @@ class MainPage extends StatelessWidget {
                 // ...
                 // Then close the drawer
                 Navigator.pop(context);
+              },
+            ),
+            SizedBox(
+              height: 280,
+            ),
+            RaisedButton(
+              child: Text('로그아웃'),
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut();
               },
             ),
           ],
