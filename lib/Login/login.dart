@@ -1,5 +1,5 @@
-import 'package:capstone_agomin/data/join_or_login.dart';
-import 'package:capstone_agomin/helper/login_background.dart';
+import 'file:///C:/Users/0/Desktop/Capstone/lib/Login/join_or_login.dart';
+import 'file:///C:/Users/0/Desktop/Capstone/lib/Login/login_background.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
