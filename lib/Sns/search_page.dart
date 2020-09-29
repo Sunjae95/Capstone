@@ -23,7 +23,7 @@ class SearchPage extends StatelessWidget {
   Widget _buildAppBar() {
     return AppBar(
       title: Text(
-        'Instagram Clone',
+        'Dog SNS',
         style: GoogleFonts.pacifico(),
       ),
     );
@@ -75,7 +75,7 @@ class SearchPage extends StatelessWidget {
                 MaterialPageRoute(builder: (context) =>DetailPostPage(doc , user)),);
           },
           child: Image.network(
-            doc.data()['photoUrl'],
+            doc.get('photoUrl'),
             fit: BoxFit.cover,
           ),
         ),

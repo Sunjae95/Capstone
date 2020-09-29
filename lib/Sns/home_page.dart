@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Instagram Clone',
+            'Dog SNS',
             style: GoogleFonts.pacifico(),
           ),
         ),
