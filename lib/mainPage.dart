@@ -11,7 +11,7 @@ import 'Sns/login_page.dart';
 import 'Sns/tab_page.dart';
 
 class MainPage extends StatelessWidget {
-  var profileSet = ProfileSet(name: "name", age: 0, species: "species");
+  //var profileSet = ProfileSet(name: "name", age: 0, species: "species");
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,82 +20,84 @@ class MainPage extends StatelessWidget {
       ),
       body: Container(
           child: Column(
+        children: <Widget>[
+          // Container(
+          //   margin: EdgeInsets.only(
+          //     top: 150,
+          //   ),
+          //   child: Text('이미지칸'),
+          // ),
+          // Container(
+          //   child: Text('이름: ${profileSet.name}\n'
+          //       '나이: ${profileSet.age}\n'
+          //       '견종: ${profileSet.species}\n'),
+          // ),
+          Container(
+              margin: EdgeInsets.only(
+                bottom: 150,
+              ),
+              child: RaisedButton(
+                  child: Text('프로필칸으로 이동'),
+                  onPressed: () async {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) {
+                        return Profile();
+                      },
+                    ));
+                  })),
+          Container(
+              //alignment: ,
+              child: Row(
             children: <Widget>[
               Container(
                 margin: EdgeInsets.only(
-                  top: 150,
+                  left: 50,
+                  right: 50,
                 ),
-                child: Text('이미지칸'),
+                child: Text('친구'),
+                color: Colors.amber,
               ),
               Container(
-                child: Text('이름: ${profileSet.name}\n'
-                    '나이: ${profileSet.age}\n'
-                    '견종: ${profileSet.species}\n'),
+                margin: EdgeInsets.only(
+                  left: 30,
+                  right: 30,
+                ),
+                child: RaisedButton(
+                    child: Text('ChatBot'),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AgominChat()),
+                      );
+                    }),
               ),
               Container(
-                  margin: EdgeInsets.only(
-                    bottom: 150,
-                  ),
-                  child: RaisedButton(
-                      child: Text('프로필칸으로 이동'),
-                      onPressed: () async {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) {
-                            return Profile();
-                          },
-                        ));
-                      })),
-              Container(
-                //alignment: ,
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.only(
-                          left: 50,
-                          right: 50,
-                        ),
-                        child: Text('친구'),
-                        color: Colors.amber,
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(
-                          left: 30,
-                          right: 30,
-                        ),
-                        child: RaisedButton(
-                            child: Text('ChatBot'),
+                margin: EdgeInsets.only(
+                  left: 40,
+                ),
+                child: StreamBuilder(
+                    stream: FirebaseAuth.instance.authStateChanges(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<dynamic> snapshot) {
+                      {
+                        return RaisedButton(
+                            child: Text('SNS'),
                             onPressed: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) =>
-                                    AgominChat()),
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        TabPage(snapshot.data)),
+                                //TabPage(snapshot.data)), //페이지 추가
                               );
-                            }),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(
-                          left: 40,
-                        ),
-                        child: StreamBuilder(
-                            stream: FirebaseAuth.instance.authStateChanges(),
-                            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) { {
-                            return RaisedButton(
-                                child: Text('SNS'),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            TabPage(snapshot.data)),
-                                    //TabPage(snapshot.data)), //페이지 추가
-                                  );
-                                });
-                          }
-}                      ),
-                      )],
-                  )),
+                            });
+                      }
+                    }),
+              )
             ],
           )),
+        ],
+      )),
       drawer: Drawer(
         // Add a ListView to the drawer. This ensures the user can scroll
         // through the options in the drawer if there isn't enough vertical
@@ -152,4 +154,3 @@ class MainPage extends StatelessWidget {
     );
   }
 }
-
