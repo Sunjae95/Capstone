@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +22,7 @@ class SearchPage extends StatelessWidget {
   Widget _buildAppBar() {
     return AppBar(
       title: Text(
-        'Instagram Clone',
+        'Dog SNS',
         style: GoogleFonts.pacifico(),
       ),
     );
@@ -73,9 +72,10 @@ class SearchPage extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) =>DetailPostPage(doc , user)),);
+            print(doc.get('photoUrl'));
           },
           child: Image.network(
-            doc.data()['photoUrl'],
+            doc.get('photoUrl'),
             fit: BoxFit.cover,
           ),
         ),

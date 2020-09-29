@@ -76,19 +76,23 @@ class MainPage extends StatelessWidget {
                         margin: EdgeInsets.only(
                           left: 40,
                         ),
-                        child: RaisedButton(
-                            child: Text('SNS'),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        RootPage()),
-                                //TabPage(snapshot.data)), //페이지 추가
-                              );
-                            }),
-                      ),
-                    ],
+                        child: StreamBuilder(
+                            stream: FirebaseAuth.instance.authStateChanges(),
+                            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) { {
+                            return RaisedButton(
+                                child: Text('SNS'),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            TabPage(snapshot.data)),
+                                    //TabPage(snapshot.data)), //페이지 추가
+                                  );
+                                });
+                          }
+}                      ),
+                      )],
                   )),
             ],
           )),

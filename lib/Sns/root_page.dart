@@ -25,7 +25,8 @@ class RootPage extends StatelessWidget {
         } else {
           //연결되었고 데이터가 있다면
           if (snapshot.hasData) {
-            return TabPage(snapshot.data);
+            return MainPage();
+              //TabPage(snapshot.data);
           }
           return LoginPage();
         }
