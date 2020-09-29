@@ -23,11 +23,11 @@ void main() async {
 //class Splash extends StatelessWidget {
 //   @override
 //   Widget build(BuildContext context) {
-     // TODO: implement build
-     // ignore: deprecated_member_use
+// TODO: implement build
+// ignore: deprecated_member_use
 //     return StreamBuilder<User>(
-         //stream으로 통신함
-         // ignore: deprecated_member_use
+//stream으로 통신함
+// ignore: deprecated_member_use
 //         stream: FirebaseAuth.instance.onAuthStateChanged,
 //         builder: (context, snapshot) {
 //           if (snapshot.data == null) {

@@ -2,10 +2,11 @@ import 'dart:ui';
 import 'dart:ui' as prefix0;
 
 
-import 'file:///C:/Users/0/Desktop/Capstone/lib/Login/itemlist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as prefix1;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'itemlist.dart';
 // https://dribbble.com/shots/6151406-Instagram-Dark-or-Light
 
 class InstagramApp extends StatefulWidget {

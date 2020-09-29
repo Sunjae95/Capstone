@@ -1,5 +1,3 @@
-import 'file:///C:/Users/0/Desktop/Capstone/lib/Login/join_or_login.dart';
-import 'file:///C:/Users/0/Desktop/Capstone/lib/Login/login_background.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'forget_pw.dart';
+import 'join_or_login.dart';
+import 'login_background.dart';
 
 class AuthPage extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); // 고유한 키가 된다.
