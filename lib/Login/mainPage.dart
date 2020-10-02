@@ -1,14 +1,11 @@
-import 'package:capstone_agomin/Login/main_page.dart';
-import 'package:capstone_agomin/Sns/root_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
-import 'ChatBot/chatScreen.dart';
-import 'Profile/profileScreen.dart';
-import 'Sns/loading_page.dart';
-import 'Sns/login_page.dart';
-import 'Sns/tab_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:capstone_agomin/ChatBot/chatScreen.dart';
+import 'package:capstone_agomin/Profile/profileScreen.dart';
+import 'package:capstone_agomin/Sns/tab_page.dart';
 
 class MainPage extends StatelessWidget {
   //var profileSet = ProfileSet(name: "name", age: 0, species: "species");

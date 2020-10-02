@@ -1,16 +1,7 @@
-import 'package:capstone_agomin/Login/login.dart';
-import 'package:capstone_agomin/Login/main_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:provider/provider.dart';
 
-import 'ChatBot/chatScreen.dart';
-import 'Profile/profileScreen.dart';
-import 'Login/join_or_login.dart';
-import 'Sns/root_page.dart';
-import 'Sns/tab_page.dart';
-import 'mainPage.dart';
+import 'Login/root_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
