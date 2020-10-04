@@ -1,3 +1,4 @@
+import 'package:capstone_agomin/Login/mainPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -166,9 +167,10 @@ class AccountPage extends StatelessWidget {
           icon: Icon(Icons.exit_to_app),
           color: Colors.black,
           onPressed: () {
+            MainPage();
             // 로그아웃
-            FirebaseAuth.instance.signOut();
-            _googleSignIn.signOut();
+            /*FirebaseAuth.instance.signOut();
+            _googleSignIn.signOut();*/
 
           },
         )
