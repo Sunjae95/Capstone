@@ -12,6 +12,9 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  User _user;
+
   File _image;
   final picker = ImagePicker();
 
@@ -19,20 +22,12 @@ class _ProfileState extends State<Profile> {
   final TextEditingController _ageController = TextEditingController();
   final TextEditingController _speciesController = TextEditingController();
 
-  FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  User _user;
   FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
   String _profileImageURL = "";
 
-  @override
-  void initState() {
-    super.initState();
-    _prepareService();
-  }
-
-  void _prepareService() async {
-    // ignore: await_only_futures
-    _user = await _firebaseAuth.currentUser;
+  Future<void> setUser() async {
+    _user = _firebaseAuth.currentUser;
+    print(_user);
   }
 
   Future getImage(ImageSource source) async {
@@ -46,6 +41,10 @@ class _ProfileState extends State<Profile> {
       }
     });
 
+    // _user = _firebaseAuth.currentUser;
+    // print(_user);
+    setUser();
+
     // 프로필 사진을 업로드할 경로와 파일명을 정의. 사용자의 uid를 이용하여 파일명의 중복 가능성 제거
     StorageReference storageReference =
         _firebaseStorage.ref().child("profile/${_user.uid}");
@@ -56,8 +55,11 @@ class _ProfileState extends State<Profile> {
     // 파일 업로드 완료까지 대기
     await storageUploadTask.onComplete;
 
+    print(storageReference.getDownloadURL());
     // 업로드한 사진의 URL 획득
-    String downloadURL = await storageReference.getDownloadURL();
+    String downloadURL = (await storageReference.getDownloadURL()).toString();
+
+    print(downloadURL);
 
     // 업로드된 사진의 URL을 페이지에 반영
     setState(() {
@@ -98,10 +100,10 @@ class _ProfileState extends State<Profile> {
         alignment: Alignment.bottomCenter,
         children: <Widget>[
           Container(
-            // constraints: BoxConstraints.expand(),
             child: _image == null
-                ? Image.asset('assets/gomiLogo.jpg')
+                ? Image.asset('assets/logo.jpg')
                 : Image.network(_profileImageURL),
+            //이미지 초기 이미지는 로고 만약 저장됐으면 FIrebase에서 이미지
           ),
           Container(
             color: Colors.black54,
