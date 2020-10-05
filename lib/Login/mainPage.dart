@@ -13,20 +13,27 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white70,
+        backgroundColor: Colors.white60,
       ),
       body: Container(
           child: Column(
         children: <Widget>[
+          SizedBox(
+            height: 100,
+          ),
           Container(
-            child: CircleAvatar(backgroundImage: ,),
+            child: CircleAvatar(
+              radius: 100,
+              backgroundImage: AssetImage('assets/logo.jpg'),
+            ),
           ),
           Container(
               margin: EdgeInsets.only(
                 bottom: 150,
               ),
               child: RaisedButton(
-                  child: Text('${FirebaseAuth.instance.currentUser.displayName}'),
+                  child:
+                      Text('${FirebaseAuth.instance.currentUser.displayName}'),
                   onPressed: () async {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) {
@@ -35,56 +42,161 @@ class MainPage extends StatelessWidget {
                     ));
                   })),
           Container(
-              //alignment: ,
+              padding: EdgeInsets.fromLTRB(40, 0, 20, 0),
               child: Row(
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(
-                  left: 50,
-                  right: 50,
-                ),
-                child: Text('친구'),
-                color: Colors.amber,
-              ),
-              Container(
-                margin: EdgeInsets.only(
-                  left: 30,
-                  right: 30,
-                ),
-                child: RaisedButton(
-                    child: Text('ChatBot'),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => AgominChat()),
-                      );
-                    }),
-              ),
-              Container(
-                margin: EdgeInsets.only(
-                  left: 40,
-                ),
-                child: StreamBuilder(
-                    stream: FirebaseAuth.instance.authStateChanges(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<dynamic> snapshot) {
-                      {
-                        return RaisedButton(
-                            child: Text('SNS'),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        TabPage(snapshot.data)),
-                                //TabPage(snapshot.data)), //페이지 추가
-                              );
-                            });
-                      }
-                    }),
-              )
-            ],
-          )),
+                children: <Widget>[
+                  Container(
+                    height: 85,
+                    width: 85,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              spreadRadius: 6,
+                              blurRadius: 4),
+                        ]),
+                    child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: <Widget>[
+                            IconButton(
+                                icon: Icon(Icons.assignment_ind),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => AgominChat()),
+                                  );
+                                }),
+                            Text(
+                              '친구',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 12),
+                            ),
+                          ],
+                        )),
+                  ),
+                  SizedBox(
+                    width: 40,
+                  ),
+                  Container(
+                    height: 85,
+                    width: 85,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              spreadRadius: 6,
+                              blurRadius: 4),
+                        ]),
+                    child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: <Widget>[
+                            IconButton(
+                                icon: Icon(Icons.assignment_ind),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => AgominChat()),
+                                  );
+                                }),
+                            Text(
+                              '챗봇',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 12),
+                            ),
+                          ],
+                        )),
+                  ),
+                  SizedBox(
+                    width: 40,
+                  ),
+                  Container(
+                    height: 85,
+                    width: 85,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              spreadRadius: 6,
+                              blurRadius: 4),
+                        ]),
+                    child: Column(
+                      children: <Widget>[
+                        StreamBuilder(
+                            stream: FirebaseAuth.instance.authStateChanges(),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<dynamic> snapshot) {
+                              {
+                                return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      children: <Widget>[
+                                        IconButton(
+                                            icon: Icon(Icons.assignment_ind),
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        TabPage(snapshot.data)),
+                                                //TabPage(snapshot.data)), //페이지 추가
+                                              );
+                                            }),
+                                        Text(
+                                          'SNS',
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 12),
+                                        ),
+                                      ],
+                                    ));
+                              }
+                            })
+                        // Icon(
+                        //   Icons.account_circle,
+                        //   color: Colors.black,
+                        // ),
+                        // Text(
+                        //   'SNS',
+                        //   style: TextStyle(color: Colors.black),
+                        // )
+                      ],
+                    ),
+                  ),
+                  // Container(
+                  //   margin: EdgeInsets.only(
+                  //     left: 40,
+                  //   ),
+                  //   child: StreamBuilder(
+                  //       stream: FirebaseAuth.instance.authStateChanges(),
+                  //       builder: (BuildContext context,
+                  //           AsyncSnapshot<dynamic> snapshot) {
+                  //         {
+                  //           return RaisedButton(
+                  //               child: Text('SNS'),
+                  //               onPressed: () {
+                  //                 Navigator.push(
+                  //                   context,
+                  //                   MaterialPageRoute(
+                  //                       builder: (context) =>
+                  //                           TabPage(snapshot.data)),
+                  //                   //TabPage(snapshot.data)), //페이지 추가
+                  //                 );
+                  //               });
+                  //         }
+                  //       }),
+                  // )
+                ],
+              )),
         ],
       )),
       drawer: Drawer(

@@ -25,9 +25,9 @@ class _ProfileState extends State<Profile> {
   FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
   String _profileImageURL = "";
 
+  //현재 유저 불러오기
   Future<void> setUser() async {
     _user = _firebaseAuth.currentUser;
-    print(_user);
   }
 
   Future getImage(ImageSource source) async {
@@ -41,8 +41,6 @@ class _ProfileState extends State<Profile> {
       }
     });
 
-    // _user = _firebaseAuth.currentUser;
-    // print(_user);
     setUser();
 
     // 프로필 사진을 업로드할 경로와 파일명을 정의. 사용자의 uid를 이용하여 파일명의 중복 가능성 제거
@@ -58,9 +56,7 @@ class _ProfileState extends State<Profile> {
     print(storageReference.getDownloadURL());
     // 업로드한 사진의 URL 획득
     String downloadURL = (await storageReference.getDownloadURL()).toString();
-
     print(downloadURL);
-
     // 업로드된 사진의 URL을 페이지에 반영
     setState(() {
       _profileImageURL = downloadURL;
