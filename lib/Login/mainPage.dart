@@ -19,7 +19,7 @@ class MainPage extends StatelessWidget {
           child: Column(
         children: <Widget>[
           Container(
-            child: CircleAvatar(backgroundImage: ,),
+            child: CircleAvatar(backgroundImage: AssetImage("assets/logo.jpg") ),
           ),
           Container(
               margin: EdgeInsets.only(
