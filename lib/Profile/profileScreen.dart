@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:capstone_agomin/profile/profiledata.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -97,7 +98,9 @@ class _ProfileState extends State<Profile> {
         alignment: Alignment.bottomCenter,
         children: <Widget>[
           Container(
-            child: _image == null ? Image.asset('assets/logo.jpg', fit: BoxFit.cover) : Image.file(_image, fit: BoxFit.cover),
+            child: _image == null
+                ? Image.asset('assets/logo.jpg', fit: BoxFit.cover)
+                : Image.file(_image, fit: BoxFit.cover),
             //이미지 초기 이미지는 로고 만약 저장됐으면 FIrebase에서 이미지
           ),
           Container(
@@ -158,10 +161,12 @@ class _ProfileState extends State<Profile> {
     );
   }
 
+
   Widget _inputData() {
     return RaisedButton(
       child: Text('저장하기'),
       onPressed: () {
+   
         Navigator.pop(context);
       },
     );
