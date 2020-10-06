@@ -3,10 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class DetailPostPage extends StatelessWidget {
-  final DocumentSnapshot doc;
+  final DocumentSnapshot document;
   final User user;
 
-  DetailPostPage(this.doc, this.user);
+  DetailPostPage(this.document, this.user);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class DetailPostPage extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 CircleAvatar(
-                  backgroundImage: NetworkImage(doc.data()['userPhotoUrl']),
+                  backgroundImage: NetworkImage(document.data()['userPhotoURL']),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
@@ -38,7 +38,7 @@ class DetailPostPage extends StatelessWidget {
                       Row(
                         children: <Widget>[
                           Text(
-                            doc.data()['email'],
+                            document.data()['email'],
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           SizedBox(
@@ -53,8 +53,8 @@ class DetailPostPage extends StatelessWidget {
 
                               var data = snapshot.data.data;
                               if(data == null ||
-                              doc.data()['email']==null ||
-                              doc.data()['email']==false)
+                              document.data()['email']==null ||
+                              document.data()['email']==false)
                                 {
                                   return GestureDetector(
                                     onTap: _follow,
@@ -80,7 +80,7 @@ class DetailPostPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Text(doc.data()['displayName']),
+                      Text(document.data()['displayName']),
                     ],
                   ),
                 )
@@ -88,16 +88,16 @@ class DetailPostPage extends StatelessWidget {
             ),
           ),
           Hero(
-            tag: doc.id,
+            tag: document.id,
             child: Image.network(
-              doc.data()['photoUrl'],
+              document.data()['photoURL'],
               fit: BoxFit.cover,
               width: double.infinity,
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(doc.data()['contents']),
+            child: Text(document.data()['contents']),
           ),
         ],
       ),
@@ -110,13 +110,13 @@ class DetailPostPage extends StatelessWidget {
     FirebaseFirestore.instance
         .collection('following')
         .doc(user.email)
-        .update({doc.data()['email'] : true},);
+        .set({document.data()['email'] : true});
 
 
     FirebaseFirestore.instance
         .collection('follower')
-        .doc(doc.data()['email'])
-        .update({user.email: true});
+        .doc(document.data()['email'])
+        .set({user.email: true});
   }
 
   // 언팔로우
@@ -124,12 +124,12 @@ class DetailPostPage extends StatelessWidget {
     FirebaseFirestore.instance
         .collection('following')
         .doc(user.email)
-        .update({doc.data()['email'] : false});
+        .set({document.data()['email'] : false});
 
     FirebaseFirestore.instance
         .collection('follower')
-        .doc(doc.data()['email'])
-        .update({user.email: false});
+        .doc(document.data()['email'])
+        .set({user.email: false});
   }
 
   // 팔로잉 상태를 얻는 스트림

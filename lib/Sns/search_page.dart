@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'create_page.dart';
 import 'detail_post_page.dart';
 
+
 class SearchPage extends StatelessWidget {
   final User user;
 
@@ -40,11 +41,11 @@ class SearchPage extends StatelessWidget {
 
           return GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
+                crossAxisCount: 4,
                 childAspectRatio: 1.0,
                 mainAxisSpacing: 1.0,
                 crossAxisSpacing: 1.0),
-            itemCount: 3,
+            itemCount: snapshot.data.docs.length,
             itemBuilder: (BuildContext context, int index) {
               return _buildListItem(context ,snapshot.data.docs[index]);
             },
@@ -63,19 +64,19 @@ class SearchPage extends StatelessWidget {
     );
   }
 
-  Widget _buildListItem(BuildContext context, DocumentSnapshot doc) {
+  Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
     return Hero(
-      tag: doc.id,
+      tag: document.id,
       child: Material(
         child: InkWell(
           onTap: (){
             Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>DetailPostPage(doc , user)),);
-            print(doc.get('photoUrl'));
+                MaterialPageRoute(builder: (context) =>DetailPostPage(document , user)),);
+            print(document.data()['photoURL']);
           },
           child: Image.network(
-            doc.get('photoUrl'),
+            document.data()['photoURL'],
             fit: BoxFit.cover,
           ),
         ),

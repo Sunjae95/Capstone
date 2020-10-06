@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,7 @@ class _FeedWidgetState extends State<FeedWidget> {
           trailing: Icon(Icons.more_vert),
         ),
         Image.network(
-          widget.doc.data()['photoUrl'],
+          widget.doc.data()['photoURL'],
           height: 300,
           width: double.infinity,
           fit: BoxFit.cover,
