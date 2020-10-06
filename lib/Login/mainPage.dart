@@ -49,9 +49,6 @@ class _MainPageState extends State<MainPage> {
             height: 50,
           ),
           Container(
-<<<<<<< HEAD
-            child: CircleAvatar(backgroundImage: AssetImage("assets/logo.jpg") ),
-=======
             child: CircleAvatar(
               radius: 100,
               // ignore: unrelated_type_equality_checks
@@ -60,7 +57,6 @@ class _MainPageState extends State<MainPage> {
                   : NetworkImage(_profileImage),
               // backgroundImage: _profileImage(),
             ),
->>>>>>> 96243c123d33be6f1fa39ae5b04a0cb407bfe4ca
           ),
           Container(
               margin: EdgeInsets.only(
