@@ -9,6 +9,7 @@ import 'package:capstone_agomin/Profile/profileScreen.dart';
 import 'package:capstone_agomin/Sns/tab_page.dart';
 
 class MainPage extends StatefulWidget {
+
   @override
   _MainPageState createState() => _MainPageState();
 }

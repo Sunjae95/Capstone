@@ -15,7 +15,6 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   User _user;
-
   File _image;
   final picker = ImagePicker();
 
@@ -161,13 +160,43 @@ class _ProfileState extends State<Profile> {
     );
   }
 
+  Future _uploadFile(BuildContext context) async {
+    // 스토리지에 업로드할 파일 경로
+    final firebaseStorageRef = FirebaseStorage.instance
+        .ref()
+        .child('profile')
+        .child('${DateTime.now().millisecondsSinceEpoch}.png'); // 파일 경로
+
+    // 파일 업로드
+    final task = firebaseStorageRef.putFile(
+      _image,
+      StorageMetadata(contentType: 'image/png'),
+    );
+
+    // 완료까지 기다림
+    final storageTaskSnapshot = await task.onComplete;
+
+    // 업로드 완료 후 url
+    final downloadURL = await storageTaskSnapshot.ref.getDownloadURL();
+
+    // 문서 작성
+    await FirebaseFirestore.instance.collection('profile').add({
+      'email': _user.email,
+      'photoURL': downloadURL,
+      'name': _nameController.text,
+      'age': _ageController.text,
+      'species': _speciesController.text,
+    });
+
+    // 완료 후 앞 화면으로 이동
+    Navigator.pop(context);
+  }
 
   Widget _inputData() {
     return RaisedButton(
       child: Text('저장하기'),
       onPressed: () {
-   
-        Navigator.pop(context);
+        _uploadFile(context);
       },
     );
   }
