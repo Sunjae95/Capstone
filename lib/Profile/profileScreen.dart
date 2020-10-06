@@ -1,12 +1,14 @@
 import 'dart:io';
 
 import 'package:capstone_agomin/profile/profiledata.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Profile extends StatefulWidget {
+
   @override
   _ProfileState createState() => _ProfileState();
 }
@@ -14,7 +16,6 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   User _user;
-
   File _image;
   final picker = ImagePicker();
 
@@ -27,8 +28,11 @@ class _ProfileState extends State<Profile> {
 
   //현재 유저 불러오기
   Future<void> setUser() async {
+
     _user = _firebaseAuth.currentUser;
   }
+
+
 
   Future getImage(ImageSource source) async {
     final pickedFile = await picker.getImage(source: source);
@@ -158,10 +162,54 @@ class _ProfileState extends State<Profile> {
     );
   }
 
+  Future _uploadFile(BuildContext context) async {
+
+
+
+    // 스토리지에 업로드할 파일 경로
+    final firebaseStorageRef = FirebaseStorage.instance
+        .ref()
+        .child('profile')
+        .child('${DateTime.now().millisecondsSinceEpoch}.png'); // 파일 경로
+
+    // 파일 업로드
+    final task = firebaseStorageRef.putFile(
+
+
+      _image,
+      StorageMetadata(contentType: 'image/png'),
+    );
+
+
+    // 완료까지 기다림
+    final storageTaskSnapshot = await task.onComplete;
+
+    // 업로드 완료 후 url
+    final downloadURL = await storageTaskSnapshot.ref.getDownloadURL();
+
+    // 문서 작성
+    await FirebaseFirestore.instance.collection('profile').add
+      ({
+      'email' : _user.email ,
+      'photoURL' : downloadURL,
+      'name' : _nameController.text,
+      'age' : _ageController.text,
+      'species' : _speciesController.text,
+    });
+
+    // 완료 후 앞 화면으로 이동
+    Navigator.pop(context);
+
+  }
+
+
+
+
   Widget _inputData() {
     return RaisedButton(
       child: Text('저장하기'),
       onPressed: () {
+        _uploadFile(context);
         Navigator.pop(context);
       },
     );
