@@ -25,14 +25,15 @@ class _ProfileState extends State<Profile> {
   FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
   String _profileImageURL = "";
 
+  //현재 유저 불러오기
   Future<void> setUser() async {
     _user = _firebaseAuth.currentUser;
-    print(_user);
   }
 
   Future getImage(ImageSource source) async {
     final pickedFile = await picker.getImage(source: source);
 
+    //이미지 사진첩이나 카메라에서 경로 받아오기
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
@@ -41,8 +42,6 @@ class _ProfileState extends State<Profile> {
       }
     });
 
-    // _user = _firebaseAuth.currentUser;
-    // print(_user);
     setUser();
 
     // 프로필 사진을 업로드할 경로와 파일명을 정의. 사용자의 uid를 이용하여 파일명의 중복 가능성 제거
@@ -58,9 +57,7 @@ class _ProfileState extends State<Profile> {
     print(storageReference.getDownloadURL());
     // 업로드한 사진의 URL 획득
     String downloadURL = (await storageReference.getDownloadURL()).toString();
-
     print(downloadURL);
-
     // 업로드된 사진의 URL을 페이지에 반영
     setState(() {
       _profileImageURL = downloadURL;
@@ -100,9 +97,7 @@ class _ProfileState extends State<Profile> {
         alignment: Alignment.bottomCenter,
         children: <Widget>[
           Container(
-            child: _image == null
-                ? Image.asset('assets/logo.jpg')
-                : Image.network(_profileImageURL),
+            child: _image == null ? Image.asset('assets/logo.jpg', fit: BoxFit.cover) : Image.file(_image, fit: BoxFit.cover),
             //이미지 초기 이미지는 로고 만약 저장됐으면 FIrebase에서 이미지
           ),
           Container(
@@ -167,13 +162,7 @@ class _ProfileState extends State<Profile> {
     return RaisedButton(
       child: Text('저장하기'),
       onPressed: () {
-        ProfileData input = ProfileData(
-          profileImageURL: _profileImageURL,
-          name: _nameController.text,
-          age: _ageController.text,
-          species: _speciesController.text,
-        );
-        Navigator.pop(context, input);
+        Navigator.pop(context);
       },
     );
   }
