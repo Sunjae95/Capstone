@@ -1,11 +1,12 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
 
 
 class LoginPage extends StatelessWidget {
@@ -33,6 +34,7 @@ class LoginPage extends StatelessWidget {
               Buttons.Google,
               onPressed: () {
                 _handleSignIn();
+                
               },
             ),
           ],
@@ -43,16 +45,17 @@ class LoginPage extends StatelessWidget {
 
   //구글 로그인을 수행하고 FirebaseUser를 반환
 
-  Future<User> _handleSignIn() async{
+  Future<User> _handleSignIn() async {
     GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     GoogleSignInAuthentication googleAuth = await googleUser.authentication;
     //구글 로그인으로 인증된  정보를 기반으로 FirebaseUser 객체를 구성
     User user = (await _auth.signInWithCredential(GoogleAuthProvider.credential(
-      idToken: googleAuth.idToken,
-      accessToken: googleAuth.accessToken
-    ))).user;
+            idToken: googleAuth.idToken, accessToken: googleAuth.accessToken)))
+        .user;
     //로그인 정보를 출력하는 로그
     print("signed in" + user.displayName);
+
+    
     return user;
   }
 }

@@ -23,6 +23,7 @@ class RootPage extends StatelessWidget {
         } else {
           //연결되었고 데이터가 있다면
           if (snapshot.hasData) {
+            print('기존 아이디 로그인 사용자: ${FirebaseAuth.instance.currentUser.displayName}');
             return MainPage();
             //TabPage(snapshot.data);
           }

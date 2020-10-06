@@ -18,23 +18,15 @@ class MainPage extends StatelessWidget {
       body: Container(
           child: Column(
         children: <Widget>[
-          // Container(
-          //   margin: EdgeInsets.only(
-          //     top: 150,
-          //   ),
-          //   child: Text('이미지칸'),
-          // ),
-          // Container(
-          //   child: Text('이름: ${profileSet.name}\n'
-          //       '나이: ${profileSet.age}\n'
-          //       '견종: ${profileSet.species}\n'),
-          // ),
+          Container(
+            child: CircleAvatar(backgroundImage: ,),
+          ),
           Container(
               margin: EdgeInsets.only(
                 bottom: 150,
               ),
               child: RaisedButton(
-                  child: Text('프로필칸으로 이동'),
+                  child: Text('${FirebaseAuth.instance.currentUser.displayName}'),
                   onPressed: () async {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) {
