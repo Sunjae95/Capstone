@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -7,8 +8,34 @@ import 'package:capstone_agomin/ChatBot/chatScreen.dart';
 import 'package:capstone_agomin/Profile/profileScreen.dart';
 import 'package:capstone_agomin/Sns/tab_page.dart';
 
-class MainPage extends StatelessWidget {
-  //var profileSet = ProfileSet(name: "name", age: 0, species: "species");
+class MainPage extends StatefulWidget {
+  @override
+  _MainPageState createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  String _basicImage = 'assets/logo.jpg';
+  String _profileImage = "";
+
+  Future<String> _profile(String _profileImage) async {
+    //URL 존재시 _profileImage바꿔줌
+    User _user = FirebaseAuth.instance.currentUser;
+    print('프로필 유저 ' + _user.displayName);
+    //저장소에 user의uid만 넣으면됨
+    String _url = (await FirebaseStorage.instance
+            .ref()
+            .child("profile/${_user.uid}")
+            .getDownloadURL())
+        .toString();
+    if (_url == "") {
+      _profileImage = "";
+      return _profileImage;
+    } else {
+      _profileImage = _url;
+
+      return _profileImage;
+    }
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,12 +46,16 @@ class MainPage extends StatelessWidget {
           child: Column(
         children: <Widget>[
           SizedBox(
-            height: 100,
+            height: 50,
           ),
           Container(
             child: CircleAvatar(
               radius: 100,
-              backgroundImage: AssetImage('assets/logo.jpg'),
+              // ignore: unrelated_type_equality_checks
+              backgroundImage: _profile(_profileImage) == ""
+                  ? AssetImage(_basicImage)
+                  : NetworkImage(_profileImage),
+              // backgroundImage: _profileImage(),
             ),
           ),
           Container(
@@ -62,7 +93,7 @@ class MainPage extends StatelessWidget {
                         child: Column(
                           children: <Widget>[
                             IconButton(
-                                icon: Icon(Icons.assignment_ind),
+                                icon: Icon(Icons.accessibility_new),
                                 onPressed: () {
                                   Navigator.push(
                                     context,
@@ -141,7 +172,7 @@ class MainPage extends StatelessWidget {
                                     child: Column(
                                       children: <Widget>[
                                         IconButton(
-                                            icon: Icon(Icons.assignment_ind),
+                                            icon: Icon(Icons.account_circle),
                                             onPressed: () {
                                               Navigator.push(
                                                 context,
