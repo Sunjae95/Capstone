@@ -1,3 +1,4 @@
+import 'package:capstone_agomin/Sns/login_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -27,7 +28,7 @@ class RootPage extends StatelessWidget {
             return MainPage();
             //TabPage(snapshot.data);
           }
-          return LoginPage();
+          return LoginScreen();
         }
       },
     );

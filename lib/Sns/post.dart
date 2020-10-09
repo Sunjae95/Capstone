@@ -3,30 +3,36 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Post {
 
-  String contents;
-  String displayName;
-  String email;
-  String photoUrl;
-  String userPhotoUrl;
+   String currentUserUid;
+   String imgUrl;
+   String caption; 
+   String location; 
+   FieldValue time;
+   String postOwnerName; 
+   String postOwnerPhotoUrl;
 
-  Post({this.contents, this.displayName, this.email, this.photoUrl, this.userPhotoUrl});
+  Post({this.currentUserUid, this.imgUrl, this.caption, this.location, this.time, this.postOwnerName, this.postOwnerPhotoUrl});
 
-  Map toMap(Post post) {
+   Map toMap(Post post) {
     var data = Map<String, dynamic>();
-    data['contents'] = post.contents;
-    data['displayName'] = post.displayName;
-    data['email'] = post.email;
-    data['photoUrl'] = post.photoUrl;
-    data['userPhotoUrl'] = post.userPhotoUrl;
+    data['ownerUid'] = post.currentUserUid;
+    data['imgUrl'] = post.imgUrl;
+    data['caption'] = post.caption;
+    data['location'] = post.location;
+    data['time'] = post.time;
+    data['postOwnerName'] = post.postOwnerName;
+    data['postOwnerPhotoUrl'] = post.postOwnerPhotoUrl;
     return data;
   }
 
   Post.fromMap(Map<String, dynamic> mapData) {
-    this.contents = mapData['contents'];
-    this.displayName = mapData['displayName'];
-    this.email = mapData['email'];
-    this.photoUrl = mapData['photoUrl'];
-    this.userPhotoUrl = mapData['userPhotoUrl'];
+    this.currentUserUid = mapData['ownerUid'];
+    this.imgUrl = mapData['imgUrl'];
+    this.caption = mapData['caption'];
+    this.location = mapData['location'];
+    this.time = mapData['time'];
+    this.postOwnerName = mapData['postOwnerName'];
+    this.postOwnerPhotoUrl = mapData['postOwnerPhotoUrl'];
   }
 
 }

@@ -1,3 +1,5 @@
+import 'package:capstone_agomin/Sns/insta_home_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,15 +8,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:capstone_agomin/ChatBot/chatScreen.dart';
 import 'package:capstone_agomin/Profile/profileScreen.dart';
-import 'package:capstone_agomin/Sns/tab_page.dart';
 
-class MainPage extends StatefulWidget {
+
+  class MainPage extends StatefulWidget {
 
   @override
   _MainPageState createState() => _MainPageState();
-}
+  }
 
-class _MainPageState extends State<MainPage> {
+  class _MainPageState extends State<MainPage> {
+
+  Future<QuerySnapshot> userDocs;
+
   String _basicImage = 'assets/logo.jpg';
   String _profileImage = "";
 
@@ -22,6 +27,7 @@ class _MainPageState extends State<MainPage> {
     //URL 존재시 _profileImage바꿔줌
     User _user = FirebaseAuth.instance.currentUser;
     print('프로필 유저 ' + _user.displayName);
+
     //저장소에 user의uid만 넣으면됨
     String _url = (await FirebaseStorage.instance
             .ref()
@@ -50,13 +56,19 @@ class _MainPageState extends State<MainPage> {
             height: 50,
           ),
           Container(
-            child: CircleAvatar(
-              radius: 100,
-              // ignore: unrelated_type_equality_checks
-              backgroundImage: _profile(_profileImage) == ""
-                  ? AssetImage(_basicImage)
-                  : NetworkImage(_profileImage),
-              // backgroundImage: _profileImage(),
+            child: StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance.collection('profile').snapshots(),
+              builder: (context, snapshot) {
+                return CircleAvatar(
+
+                  radius: 100,
+                  // ignore: unrelated_type_equality_checks
+                  backgroundImage: _profile(_profileImage) == ""
+                      ? AssetImage(_basicImage)
+                      : NetworkImage(_profileImage),
+                  // backgroundImage: _profileImage(),
+                );
+              }
             ),
           ),
           Container(
@@ -179,7 +191,8 @@ class _MainPageState extends State<MainPage> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        TabPage(snapshot.data)),
+                                              InstaHomeScreen())
+                                                        //TabPage(snapshot.data)),
                                                 //TabPage(snapshot.data)), //페이지 추가
                                               );
                                             }),
