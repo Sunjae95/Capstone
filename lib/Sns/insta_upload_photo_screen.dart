@@ -13,7 +13,7 @@ import 'dart:math';
 import 'insta_home_screen.dart';
 
 class InstaUploadPhotoScreen extends StatefulWidget {
-   File imageFile;
+  File imageFile;
   InstaUploadPhotoScreen({this.imageFile});
 
   @override
@@ -39,9 +39,6 @@ class _InstaUploadPhotoScreenState extends State<InstaUploadPhotoScreen> {
     _locationController?.dispose();
     _captionController?.dispose();
   }
-
-  
-
 
   bool _visibility = true;
 
@@ -73,23 +70,23 @@ class _InstaUploadPhotoScreenState extends State<InstaUploadPhotoScreen> {
                     compressImage();
                     _repository.retrieveUserDetails(currentUser).then((user) {
                       _repository
-                        .uploadImageToStorage(widget.imageFile)
-                        .then((url) {
-                      _repository
-                          .addPostToDb(user, url,
-                              _captionController.text, _locationController.text)
-                          .then((value) {
-                        print("Post added to db");
-                        Navigator.pushReplacement(context, MaterialPageRoute(
-                          builder: ((context) => InstaHomeScreen())
-                        ));
-                      }).catchError((e) =>
-                              print("Error adding current post to db : $e"));
-                    }).catchError((e) {
-                      print("Error uploading image to storage : $e");
+                          .uploadImageToStorage(widget.imageFile)
+                          .then((url) {
+                        _repository
+                            .addPostToDb(user, url, _captionController.text,
+                                _locationController.text)
+                            .then((value) {
+                          print("Post added to db");
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) => InstaHomeScreen())));
+                        }).catchError((e) =>
+                                print("Error adding current post to db : $e"));
+                      }).catchError((e) {
+                        print("Error uploading image to storage : $e");
+                      });
                     });
-                    });
-                    
                   } else {
                     print("Current User is null");
                   }
@@ -118,7 +115,7 @@ class _InstaUploadPhotoScreenState extends State<InstaUploadPhotoScreen> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 12.0, right: 8.0),
                   child: TextField(
-                    controller: _captionController,
+                    // controller: _captionController,
                     maxLines: 3,
                     keyboardType: TextInputType.multiline,
                     decoration: InputDecoration(
@@ -197,7 +194,10 @@ class _InstaUploadPhotoScreenState extends State<InstaUploadPhotoScreen> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 50.0),
-            child: Offstage(child: CircularProgressIndicator(), offstage: _visibility,),
+            child: Offstage(
+              child: CircularProgressIndicator(),
+              offstage: _visibility,
+            ),
           )
         ],
       ),

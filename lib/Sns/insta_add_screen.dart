@@ -13,15 +13,17 @@ class InstaAddScreen extends StatefulWidget {
 
 class _InstaAddScreenState extends State<InstaAddScreen> {
   File imageFile;
-  final picker = ImagePicker();
+  
 
-  Future<PickedFile> _pickImage(String action) async {
-    PickedFile selectedImage;
+  Future<File> _pickImage(String action) async {
+    File selectedImage;
 
     action == 'Gallery'
         ? selectedImage =
-            await picker.getImage(source: ImageSource.gallery)
-        : await picker.getImage(source: ImageSource.camera);
+            // ignore: deprecated_member_use
+            await ImagePicker.pickImage(source: ImageSource.gallery)
+        // ignore: deprecated_member_use
+        : await ImagePicker.pickImage(source: ImageSource.camera);
 
     return selectedImage;
   }

@@ -129,7 +129,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: TextField(
-                  controller: _nameController,
+                  // controller: _nameController,
                   decoration: InputDecoration(
                     hintText: 'Name',
                     labelText: 'Name',
@@ -145,8 +145,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
                 child: TextField(
-                  controller: _bioController,
-                  maxLines: 3,
+                  // controller: _bioController,
+                  // maxLines: 3,
                   decoration:
                       InputDecoration(hintText: 'Bio', labelText: 'Bio'),
                   onChanged: ((value) {
