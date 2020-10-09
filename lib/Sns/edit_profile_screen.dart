@@ -41,15 +41,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   File imageFile;
-  final picker = ImagePicker();
 
-  Future<PickedFile> _pickImage(String action) async {
-    PickedFile selectedImage;
+  Future<File> _pickImage(String action) async {
+    File selectedImage;
 
     action == 'Gallery'
         ? selectedImage =
-            await picker.getImage(source: ImageSource.gallery)
-        : await picker.getImage(source: ImageSource.camera);
+            // ignore: deprecated_member_use
+            await ImagePicker.pickImage(source: ImageSource.gallery)
+        // ignore: deprecated_member_use
+        : await ImagePicker.pickImage(source: ImageSource.camera);
 
     return selectedImage;
   }
@@ -212,7 +213,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 onPressed: () {
                   _pickImage('Gallery').then((selectedImage) {
                     setState(() {
-                      imageFile = selectedImage as File;
+                      imageFile = selectedImage;
                     });
                     compressImage();
                     _repository.uploadImageToStorage(imageFile).then((url) {
@@ -228,7 +229,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 onPressed: () {
                   _pickImage('Camera').then((selectedImage) {
                     setState(() {
-                      imageFile = selectedImage as File;
+                      imageFile = selectedImage;
                     });
                     compressImage();
                     _repository.uploadImageToStorage(imageFile).then((url) {

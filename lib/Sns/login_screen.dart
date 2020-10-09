@@ -3,9 +3,6 @@ import 'package:capstone_agomin/Sns/repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'insta_home_screen.dart';
-
-
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -16,6 +13,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print('login_page created');
     return Scaffold(
       appBar: AppBar(
           backgroundColor: new Color(0xfff8faf8),
@@ -63,13 +61,15 @@ class _LoginScreenState extends State<LoginScreen> {
         print("VALUE : $value");
         print("INSIDE IF");
         _repository.addDataToDb(user).then((value) {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) {
             return MainPage();
           }));
         });
       } else {
         print("INSIDE ELSE");
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) {
           return MainPage();
         }));
       }

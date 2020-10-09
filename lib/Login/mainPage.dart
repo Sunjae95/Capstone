@@ -9,42 +9,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:capstone_agomin/ChatBot/chatScreen.dart';
 import 'package:capstone_agomin/Profile/profileScreen.dart';
 
-
-  class MainPage extends StatefulWidget {
-
+class MainPage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
-  }
+}
 
-  class _MainPageState extends State<MainPage> {
-
+class _MainPageState extends State<MainPage> {
   Future<QuerySnapshot> userDocs;
 
   String _basicImage = 'assets/logo.jpg';
-  String _profileImage = "";
-
-  Future<String> _profile(String _profileImage) async {
-    //URL 존재시 _profileImage바꿔줌
-    User _user = FirebaseAuth.instance.currentUser;
-    print('프로필 유저 ' + _user.displayName);
-
-    //저장소에 user의uid만 넣으면됨
-    String _url = (await FirebaseStorage.instance
-            .ref()
-            .child("profile/${_user.uid}")
-            .getDownloadURL())
-        .toString();
-    if (_url == "") {
-      _profileImage = "";
-      return _profileImage;
-    } else {
-      _profileImage = _url;
-
-      return _profileImage;
-    }
-  }
 
   Widget build(BuildContext context) {
+    print('Main created');
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white60,
@@ -57,19 +33,16 @@ import 'package:capstone_agomin/Profile/profileScreen.dart';
           ),
           Container(
             child: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance.collection('profile').snapshots(),
-              builder: (context, snapshot) {
-                return CircleAvatar(
-
-                  radius: 100,
-                  // ignore: unrelated_type_equality_checks
-                  backgroundImage: _profile(_profileImage) == ""
-                      ? AssetImage(_basicImage)
-                      : NetworkImage(_profileImage),
-                  // backgroundImage: _profileImage(),
-                );
-              }
-            ),
+                stream: FirebaseFirestore.instance
+                    .collection('profile')
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  return CircleAvatar(
+                    radius: 100,
+                    child: Image.asset(_basicImage),
+                    // backgroundImage: _profileImage(),
+                  );
+                }),
           ),
           Container(
               margin: EdgeInsets.only(
@@ -188,13 +161,13 @@ import 'package:capstone_agomin/Profile/profileScreen.dart';
                                             icon: Icon(Icons.account_circle),
                                             onPressed: () {
                                               Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                              InstaHomeScreen())
-                                                        //TabPage(snapshot.data)),
-                                                //TabPage(snapshot.data)), //페이지 추가
-                                              );
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          InstaHomeScreen())
+                                                  //TabPage(snapshot.data)),
+                                                  //TabPage(snapshot.data)), //페이지 추가
+                                                  );
                                             }),
                                         Text(
                                           'SNS',
