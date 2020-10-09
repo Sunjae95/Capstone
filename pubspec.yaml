@@ -34,6 +34,13 @@ dependencies:
   google_fonts: ^0.1.1
   cloud_firestore : ^0.14.0+2
   firebase_storage: ^4.0.0
+  rxdart : ^0.24.1
+  file_picker: ^2.0.7
+  location: ^3.0.2
+  geocoder: ^0.2.1
+  shared_preferences: ^0.5.12
+  cached_network_image: ^2.3.2+1
+
   #firebase_analytics: ^1.0.6
 
 
@@ -44,6 +51,7 @@ dependencies:
   dots_indicator: ^1.1.0
   #cloud_firestore: ^0.12.10
   google_maps_flutter: ^0.5.21+7
+  image:
   
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -87,6 +95,10 @@ flutter:
     - assets/agomin.jpg
     - assets/loading.gif
     - assets/logo.jpg
+    - assets/insta_logo.png
+    - assets/google_icon.jpg
+    - assets/no_image.png
+    - assets/blankimage.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

@@ -1,8 +1,8 @@
+import 'package:capstone_agomin/Sns/login_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'login_page.dart';
 import 'mainPage.dart';
 import 'loading_page.dart';
 
@@ -23,11 +23,13 @@ class RootPage extends StatelessWidget {
         } else {
           //연결되었고 데이터가 있다면
           if (snapshot.hasData) {
-            print('기존 아이디 로그인 사용자: ${FirebaseAuth.instance.currentUser.displayName}');
+            print(
+                '기존 아이디 로그인 사용자: ${FirebaseAuth.instance.currentUser.displayName}');
             return MainPage();
             //TabPage(snapshot.data);
+          } else {
+            return LoginScreen();
           }
-          return LoginPage();
         }
       },
     );
