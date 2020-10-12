@@ -1,19 +1,19 @@
 import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:capstone_agomin/Sns/repository.dart';
-import 'package:capstone_agomin/Sns/user.dart';
+import 'package:capstone_agomin/Helper/repository.dart';
+import 'package:capstone_agomin/Helper/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 
 import 'chat_screen.dart';
 import 'comments_screen.dart';
 import 'insta_friend_profile_screen.dart';
-import 'like.dart';
+import '../Helper/like.dart';
 import 'likes_screen.dart';
-
 
 class InstaFeedScreen extends StatefulWidget {
   @override
@@ -22,7 +22,7 @@ class InstaFeedScreen extends StatefulWidget {
 
 class _InstaFeedScreenState extends State<InstaFeedScreen> {
   var _repository = Repository();
-  Member user , currentUser, followingUser;
+  Member user, currentUser, followingUser;
   IconData icon;
   Color color;
   List<Member> usersList = List<Member>();
@@ -41,7 +41,7 @@ class _InstaFeedScreenState extends State<InstaFeedScreen> {
 
     Member user = await _repository.fetchUserDetailsById(currentUser.uid);
     setState(() {
-      this.currentUser = user ;
+      this.currentUser = user;
     });
 
     followingUIDs = await _repository.fetchFollowingUids(currentUser);
@@ -49,14 +49,14 @@ class _InstaFeedScreenState extends State<InstaFeedScreen> {
     for (var i = 0; i < followingUIDs.length; i++) {
       print("DSDASDASD : ${followingUIDs[i]}");
       // _future = _repository.retrievePostByUID(followingUIDs[i]);
-      this.user = (await _repository.fetchUserDetailsById(followingUIDs[i])) ;
+      this.user = (await _repository.fetchUserDetailsById(followingUIDs[i]));
       print("user : ${this.user.uid}");
       usersList.add(this.user);
       print("USERSLIST : ${usersList.length}");
 
       for (var i = 0; i < usersList.length; i++) {
         setState(() {
-          followingUser = usersList[i] ;
+          followingUser = usersList[i];
           print("FOLLOWING USER : ${followingUser.uid}");
         });
       }
@@ -70,15 +70,18 @@ class _InstaFeedScreenState extends State<InstaFeedScreen> {
       appBar: AppBar(
         backgroundColor: new Color(0xfff8faf8),
         centerTitle: true,
-        elevation: 1.0,
-        leading: new Icon(Icons.camera_alt),
-        title:
-            SizedBox(height: 35.0, child: Image.asset("assets/insta_logo.png")),
+        title: Text(
+          'Agomin',
+          style: TextStyle(color: Colors.black),
+        ),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 12.0),
             child: IconButton(
-              icon: Icon(Icons.send),
+              icon: Icon(
+                Icons.send,
+                color: Colors.black,
+              ),
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: ((context) => ChatScreen())));
@@ -129,7 +132,10 @@ class _InstaFeedScreenState extends State<InstaFeedScreen> {
   }
 
   Widget listItem(
-      {List<DocumentSnapshot> list, Member user, Member currentUser, int index}) {
+      {List<DocumentSnapshot> list,
+      Member user,
+      Member currentUser,
+      int index}) {
     print("dadadadad : ${user.uid}");
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -177,7 +183,8 @@ class _InstaFeedScreenState extends State<InstaFeedScreen> {
                               MaterialPageRoute(
                                   builder: ((context) =>
                                       InstaFriendProfileScreen(
-                                        name: list[index].data()['postOwnerName'],
+                                        name:
+                                            list[index].data()['postOwnerName'],
                                       ))));
                         },
                         child: new Text(
@@ -347,9 +354,12 @@ class _InstaFeedScreenState extends State<InstaFeedScreen> {
                   )
                 : commentWidget(list[index].reference)),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          child: Text("1 Day Ago", style: TextStyle(color: Colors.grey)),
-        )
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: Text(
+              DateFormat.yMd().format(DateTime.parse(
+                  list[index].data()['time'].toDate().toString())),
+            ))
       ],
     );
   }
@@ -397,11 +407,7 @@ class _InstaFeedScreenState extends State<InstaFeedScreen> {
   }
 
   void postUnlike(DocumentReference reference, Member currentUser) {
-    reference
-        .collection("likes")
-        .doc(currentUser.uid)
-        .delete()
-        .then((value) {
+    reference.collection("likes").doc(currentUser.uid).delete().then((value) {
       print("Post Unliked");
     });
   }

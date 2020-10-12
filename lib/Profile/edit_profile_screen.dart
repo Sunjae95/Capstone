@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:math';
-import 'package:capstone_agomin/Sns/repository.dart';
+import 'package:capstone_agomin/Helper/repository.dart';
 import 'package:image/image.dart' as Im;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

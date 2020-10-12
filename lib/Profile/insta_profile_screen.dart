@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:async/async.dart';
 import 'package:capstone_agomin/Login/root_page.dart';
 import 'package:capstone_agomin/Sns/post_detail_screen.dart';
-import 'package:capstone_agomin/Sns/repository.dart';
-import 'package:capstone_agomin/Sns/user.dart';
+import 'package:capstone_agomin/Helper/repository.dart';
+import 'package:capstone_agomin/Helper/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,10 +13,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-import 'comments_screen.dart';
+import '../Sns/comments_screen.dart';
 import 'edit_profile_screen.dart';
-import 'like.dart';
-import 'likes_screen.dart';
+import '../Helper/like.dart';
+import '../Sns/likes_screen.dart';
 
 class InstaProfileScreen extends StatefulWidget {
   // InstaProfileScreen();
@@ -58,8 +58,11 @@ class _InstaProfileScreenState extends State<InstaProfileScreen> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: new Color(0xfff8faf8),
-          elevation: 1,
-          title: Text('Profile'),
+          centerTitle: true,
+          title: Text(
+            'Agomin',
+            style: TextStyle(color: Colors.black),
+          ),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.settings_power),
@@ -97,7 +100,6 @@ class _InstaProfileScreenState extends State<InstaProfileScreen> {
                                   fit: BoxFit.cover),
                             )),
                       ),
-                      
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Column(
@@ -190,15 +192,16 @@ class _InstaProfileScreenState extends State<InstaProfileScreen> {
                                 ),
                               ),
                               onTap: () {
-                                Navigator.push(context, MaterialPageRoute(
-                                  builder: ((context) => EditProfileScreen(
-                                    photoUrl: _user.photoUrl,
-                                    email: _user.email,
-                                    bio: _user.bio,
-                                    name: _user.displayName,
-                                    phone: _user.phone
-                                  ))
-                                ));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: ((context) =>
+                                            EditProfileScreen(
+                                                photoUrl: _user.photoUrl,
+                                                email: _user.email,
+                                                bio: _user.bio,
+                                                name: _user.displayName,
+                                                phone: _user.phone))));
                               },
                             )
                           ],
@@ -588,8 +591,8 @@ class _ListItemState extends State<ListItem> {
                               style: TextStyle(fontWeight: FontWeight.bold)),
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0),
-                            child:
-                                Text(widget.list[widget.index].data()['caption']),
+                            child: Text(
+                                widget.list[widget.index].data()['caption']),
                           )
                         ],
                       ),
@@ -624,11 +627,7 @@ class _ListItemState extends State<ListItem> {
   }
 
   void postUnlike(DocumentReference reference) {
-    reference
-        .collection("likes")
-        .doc(widget.user.uid)
-        .delete()
-        .then((value) {
+    reference.collection("likes").doc(widget.user.uid).delete().then((value) {
       print("Post Unliked");
     });
   }

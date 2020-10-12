@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:math';
-import 'package:capstone_agomin/Sns/repository.dart';
+import 'package:capstone_agomin/Helper/repository.dart';
 import 'package:image/image.dart' as Im;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 
 import 'package:path_provider/path_provider.dart';
 
-import 'message.dart';
+import '../Helper/message.dart';
 
 class ChatDetailScreen extends StatefulWidget {
   final String photoUrl;

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:capstone_agomin/Sns/repository.dart';
+import 'package:capstone_agomin/Helper/repository.dart';
 import 'package:flutter/material.dart';
 
 import 'package:location/location.dart';
@@ -10,7 +10,7 @@ import 'package:image/image.dart' as Im;
 import 'package:path_provider/path_provider.dart';
 import 'dart:math';
 
-import 'insta_home_screen.dart';
+import '../Home/insta_home_screen.dart';
 
 class InstaUploadPhotoScreen extends StatefulWidget {
   File imageFile;

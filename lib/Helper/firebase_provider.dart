@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:capstone_agomin/Sns/comment.dart';
-import 'package:capstone_agomin/Sns/like.dart';
-import 'package:capstone_agomin/Sns/message.dart';
-import 'package:capstone_agomin/Sns/post.dart';
+import 'package:capstone_agomin/Helper/comment.dart';
+import 'package:capstone_agomin/Helper/like.dart';
+import 'package:capstone_agomin/Helper/message.dart';
+import 'package:capstone_agomin/Helper/post.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

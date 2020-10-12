@@ -2,15 +2,14 @@ import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone_agomin/Sns/post_detail_screen.dart';
-import 'package:capstone_agomin/Sns/repository.dart';
-import 'package:capstone_agomin/Sns/user.dart';
+import 'package:capstone_agomin/Helper/repository.dart';
+import 'package:capstone_agomin/Helper/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 //체크포인트
 import 'package:flutter/material.dart';
 
-import 'insta_friend_profile_screen.dart';
-
+import '../Sns/insta_friend_profile_screen.dart';
 
 class InstaSearchScreen extends StatefulWidget {
   @override
@@ -50,19 +49,26 @@ class _InstaSearchScreenState extends State<InstaSearchScreen> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     print("INSIDE BUILD");
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text('Search'),
+        backgroundColor: new Color(0xfff8faf8),
+        centerTitle: true,
+        title: Text(
+          'Agomin',
+          style: TextStyle(color: Colors.black),
+        ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.search),
+            icon: Icon(
+              Icons.search,
+              color: Colors.black,
+            ),
             onPressed: () {
-              showSearch(context: context, delegate: DataSearch(userList: usersList));
+              showSearch(
+                  context: context, delegate: DataSearch(userList: usersList));
             },
           )
         ],
@@ -102,9 +108,8 @@ class _InstaSearchScreenState extends State<InstaSearchScreen> {
 }
 
 class DataSearch extends SearchDelegate<String> {
-
-   List<Member> userList;
-   DataSearch({this.userList});
+  List<Member> userList;
+  DataSearch({this.userList});
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -134,7 +139,7 @@ class DataSearch extends SearchDelegate<String> {
   @override
   Widget buildResults(BuildContext context) {
     return null;
-   // return Center(child: Container(width: 50.0, height: 50.0, color: Colors.red, child: Text(query),));
+    // return Center(child: Container(width: 50.0, height: 50.0, color: Colors.red, child: Text(query),));
   }
 
   @override
@@ -146,12 +151,12 @@ class DataSearch extends SearchDelegate<String> {
       itemCount: suggestionsList.length,
       itemBuilder: ((context, index) => ListTile(
             onTap: () {
-              
-           //   showResults(context);
-              Navigator.push(context, MaterialPageRoute(
-                builder: ((context) => InstaFriendProfileScreen(name: suggestionsList[index].displayName)) 
-              ));
-              
+              //   showResults(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) => InstaFriendProfileScreen(
+                          name: suggestionsList[index].displayName))));
             },
             leading: CircleAvatar(
               backgroundImage: NetworkImage(suggestionsList[index].photoUrl),
