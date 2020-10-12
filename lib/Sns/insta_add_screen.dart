@@ -23,16 +23,14 @@ class _InstaAddScreenState extends State<InstaAddScreen> {
       // ignore: deprecated_member_use
       await ImagePicker.pickImage(source: ImageSource.gallery);
     }
-        // ignore: deprecated_member_use
-       // : await ImagePicker.pickImage(source: ImageSource.camera);
+
 
     if (action == 'Camera') {
       selectedImage =
     // ignore: deprecated_member_use
     await ImagePicker.pickImage(source: ImageSource.camera);
     }
-    // ignore: deprecated_member_use
-     //   : await ImagePicker.pickImage(source: ImageSource.gallery);
+
 
     return selectedImage;
   }

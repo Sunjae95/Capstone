@@ -149,20 +149,20 @@ class _InstaUploadPhotoScreenState extends State<InstaUploadPhotoScreen> {
             padding: const EdgeInsets.only(left: 12.0),
             child: FutureBuilder(
                 future: locateUser(),
-                builder: ((context, AsyncSnapshot<List<Address>> snapshot) {
+                builder: ((context, AsyncSnapshot<List<Address>> addresses) {
                   //  if (snapshot.hasData) {
-                  if (snapshot.hasData) {
+                  if (addresses.hasData) {
                     return Row(
                       // alignment: WrapAlignment.start,
                       children: <Widget>[
                         GestureDetector(
                           child: Chip(
-                            label: Text(snapshot.data.first.locality),
+                            label: Text(addresses.data.first.locality),
                           ),
                           onTap: () {
                             setState(() {
                               _locationController.text =
-                                  snapshot.data.first.locality;
+                                  addresses.data.first.locality;
                             });
                           },
                         ),
@@ -170,16 +170,16 @@ class _InstaUploadPhotoScreenState extends State<InstaUploadPhotoScreen> {
                           padding: const EdgeInsets.only(left: 12.0),
                           child: GestureDetector(
                             child: Chip(
-                              label: Text(snapshot.data.first.subAdminArea +
-                                  ", " +
-                                  snapshot.data.first.subLocality),
+                              label: Text(addresses.data.first.adminArea +
+                                       ", " +
+                                  addresses.data.first.locality),
                             ),
                             onTap: () {
                               setState(() {
                                 _locationController.text =
-                                    snapshot.data.first.subAdminArea +
+                                    addresses.data.first.adminArea +
                                         ", " +
-                                        snapshot.data.first.subLocality;
+                                        addresses.data.first.locality;
                               });
                             },
                           ),
@@ -187,7 +187,7 @@ class _InstaUploadPhotoScreenState extends State<InstaUploadPhotoScreen> {
                       ],
                     );
                   } else {
-                    print("Connection State : ${snapshot.connectionState}");
+                    print("Connection State : ${addresses.connectionState}");
                     return CircularProgressIndicator();
                   }
                 })),
@@ -226,7 +226,9 @@ class _InstaUploadPhotoScreenState extends State<InstaUploadPhotoScreen> {
     LocationData currentLocation;
     Future<List<Address>> addresses;
 
-    var location = new Location();
+    Location location = new Location();
+
+
 
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
