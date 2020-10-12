@@ -13,26 +13,25 @@ class InstaAddScreen extends StatefulWidget {
 
 class _InstaAddScreenState extends State<InstaAddScreen> {
   File imageFile;
-  
 
   Future<File> _pickImage(String action) async {
     File selectedImage;
 
     if (action == 'Gallery') {
       selectedImage =
-      // ignore: deprecated_member_use
-      await ImagePicker.pickImage(source: ImageSource.gallery);
+          // ignore: deprecated_member_use
+          await ImagePicker.pickImage(source: ImageSource.gallery);
     }
-        // ignore: deprecated_member_use
-       // : await ImagePicker.pickImage(source: ImageSource.camera);
+    // ignore: deprecated_member_use
+    // : await ImagePicker.pickImage(source: ImageSource.camera);
 
     if (action == 'Camera') {
       selectedImage =
-    // ignore: deprecated_member_use
-    await ImagePicker.pickImage(source: ImageSource.camera);
+          // ignore: deprecated_member_use
+          await ImagePicker.pickImage(source: ImageSource.camera);
     }
     // ignore: deprecated_member_use
-     //   : await ImagePicker.pickImage(source: ImageSource.gallery);
+    //   : await ImagePicker.pickImage(source: ImageSource.gallery);
 
     return selectedImage;
   }
@@ -51,9 +50,12 @@ class _InstaAddScreenState extends State<InstaAddScreen> {
                     setState(() {
                       imageFile = selectedImage;
                     });
-                    Navigator.push(context, MaterialPageRoute(
-                      builder: ((context) => InstaUploadPhotoScreen(imageFile: imageFile,))
-                    ));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) => InstaUploadPhotoScreen(
+                                  imageFile: imageFile,
+                                ))));
                   });
                 },
               ),
@@ -64,10 +66,13 @@ class _InstaAddScreenState extends State<InstaAddScreen> {
                     setState(() {
                       imageFile = selectedImage;
                     });
-                    Navigator.push(context, MaterialPageRoute(
-                      builder: ((context) => InstaUploadPhotoScreen(imageFile: imageFile,))
-                    ));
-                  }); 
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) => InstaUploadPhotoScreen(
+                                  imageFile: imageFile,
+                                ))));
+                  });
                 },
               ),
               SimpleDialogOption(
@@ -85,8 +90,12 @@ class _InstaAddScreenState extends State<InstaAddScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text('Add Photo'),
+        backgroundColor: new Color(0xfff8faf8),
+        centerTitle: true,
+        title: Text(
+          'Agomin',
+          style: TextStyle(color: Colors.black),
+        ),
       ),
       body: Center(
           child: RaisedButton.icon(

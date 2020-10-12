@@ -1,6 +1,7 @@
+import 'package:capstone_agomin/Home/insta_home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:capstone_agomin/Login/mainPage.dart';
-import 'package:capstone_agomin/Sns/repository.dart';
+
+import 'package:capstone_agomin/Helper/repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -63,14 +64,14 @@ class _LoginScreenState extends State<LoginScreen> {
         _repository.addDataToDb(user).then((value) {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) {
-            return MainPage();
+            return InstaHomeScreen();
           }));
         });
       } else {
         print("INSIDE ELSE");
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) {
-          return MainPage();
+          return InstaHomeScreen();
         }));
       }
     });

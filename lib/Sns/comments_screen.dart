@@ -1,9 +1,9 @@
-import 'package:capstone_agomin/Sns/user.dart';
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
-import 'comment.dart';
+import 'package:capstone_agomin/Helper/user.dart';
+import '../Helper/comment.dart';
 
 class CommentsScreen extends StatefulWidget {
   final DocumentReference documentReference;

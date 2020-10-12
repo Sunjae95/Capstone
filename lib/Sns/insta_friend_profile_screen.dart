@@ -2,14 +2,14 @@ import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone_agomin/Sns/post_detail_screen.dart';
-import 'package:capstone_agomin/Sns/repository.dart';
-import 'package:capstone_agomin/Sns/user.dart';
+import 'package:capstone_agomin/Helper/repository.dart';
+import 'package:capstone_agomin/Helper/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'comments_screen.dart';
-import 'like.dart';
+import '../Helper/like.dart';
 import 'likes_screen.dart';
 
 

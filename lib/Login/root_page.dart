@@ -1,8 +1,9 @@
+import 'package:capstone_agomin/Home/insta_home_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../Sns/login_screen.dart';
+import 'login_screen.dart';
 import 'mainPage.dart';
 import 'loading_page.dart';
 
@@ -25,7 +26,7 @@ class RootPage extends StatelessWidget {
           if (snapshot.hasData) {
             print(
                 '기존 아이디 로그인 사용자: ${FirebaseAuth.instance.currentUser.displayName}');
-            return MainPage();
+            return InstaHomeScreen();
             //TabPage(snapshot.data);
           } else {
             return LoginScreen();
