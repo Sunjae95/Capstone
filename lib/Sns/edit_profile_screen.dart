@@ -129,14 +129,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: TextField(
-                  // controller: _nameController,
+                  controller: _nameController,
                   decoration: InputDecoration(
                     hintText: 'Name',
                     labelText: 'Name',
                   ),
                   onChanged: ((value) {
                     setState(() {
-                      _nameController.text = value;
+                      value = _nameController.text;
                     });
                   }),
                 ),
@@ -145,13 +145,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
                 child: TextField(
-                  // controller: _bioController,
-                  // maxLines: 3,
+                  controller: _bioController,
+                  maxLines: 3,
                   decoration:
                       InputDecoration(hintText: 'Bio', labelText: 'Bio'),
                   onChanged: ((value) {
                     setState(() {
-                      _bioController.text = value;
+                      value = _bioController.text;
                     });
                   }),
                 ),
@@ -176,7 +176,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       hintText: 'Email address', labelText: 'Email address'),
                   onChanged: ((value) {
                     setState(() {
-                      _emailController.text = value;
+                      value = _emailController.text;
                     });
                   }),
                 ),
@@ -185,11 +185,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
                 child: TextField(
+                  controller: _phoneController,
                   decoration: InputDecoration(
                       hintText: 'Phone Number', labelText: 'Phone Number'),
                   onChanged: ((value) {
                     setState(() {
-                      _phoneController.text = value;
+                      value = _phoneController.text;
                     });
                   }),
                 ),

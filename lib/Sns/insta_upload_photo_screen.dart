@@ -115,7 +115,7 @@ class _InstaUploadPhotoScreenState extends State<InstaUploadPhotoScreen> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 12.0, right: 8.0),
                   child: TextField(
-                    // controller: _captionController,
+                    controller: _captionController,
                     maxLines: 3,
                     keyboardType: TextInputType.multiline,
                     decoration: InputDecoration(
@@ -123,7 +123,7 @@ class _InstaUploadPhotoScreenState extends State<InstaUploadPhotoScreen> {
                     ),
                     onChanged: ((value) {
                       setState(() {
-                        _captionController.text = value;
+                        value = _captionController.text;
                       });
                     }),
                   ),
@@ -137,7 +137,7 @@ class _InstaUploadPhotoScreenState extends State<InstaUploadPhotoScreen> {
               controller: _locationController,
               onChanged: ((value) {
                 setState(() {
-                  _locationController.text = value;
+                  value = _locationController.text;
                 });
               }),
               decoration: InputDecoration(
