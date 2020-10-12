@@ -25,6 +25,13 @@ class _InstaAddScreenState extends State<InstaAddScreen> {
         // ignore: deprecated_member_use
         : await ImagePicker.pickImage(source: ImageSource.camera);
 
+    action == 'Camera'
+        ? selectedImage =
+    // ignore: deprecated_member_use
+    await ImagePicker.pickImage(source: ImageSource.camera)
+    // ignore: deprecated_member_use
+        : await ImagePicker.pickImage(source: ImageSource.gallery);
+
     return selectedImage;
   }
 
@@ -40,7 +47,7 @@ class _InstaAddScreenState extends State<InstaAddScreen> {
                 onPressed: () {
                   _pickImage('Gallery').then((selectedImage) {
                     setState(() {
-                      imageFile = selectedImage as File;
+                      imageFile = selectedImage;
                     });
                     Navigator.push(context, MaterialPageRoute(
                       builder: ((context) => InstaUploadPhotoScreen(imageFile: imageFile,))
@@ -53,7 +60,7 @@ class _InstaAddScreenState extends State<InstaAddScreen> {
                 onPressed: () {
                   _pickImage('Camera').then((selectedImage) {
                     setState(() {
-                      imageFile = selectedImage as File;
+                      imageFile = selectedImage;
                     });
                     Navigator.push(context, MaterialPageRoute(
                       builder: ((context) => InstaUploadPhotoScreen(imageFile: imageFile,))
