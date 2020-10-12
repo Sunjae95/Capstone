@@ -18,19 +18,21 @@ class _InstaAddScreenState extends State<InstaAddScreen> {
   Future<File> _pickImage(String action) async {
     File selectedImage;
 
-    action == 'Gallery'
-        ? selectedImage =
-            // ignore: deprecated_member_use
-            await ImagePicker.pickImage(source: ImageSource.gallery)
+    if (action == 'Gallery') {
+      selectedImage =
+      // ignore: deprecated_member_use
+      await ImagePicker.pickImage(source: ImageSource.gallery);
+    }
         // ignore: deprecated_member_use
-        : await ImagePicker.pickImage(source: ImageSource.camera);
+       // : await ImagePicker.pickImage(source: ImageSource.camera);
 
-    action == 'Camera'
-        ? selectedImage =
+    if (action == 'Camera') {
+      selectedImage =
     // ignore: deprecated_member_use
-    await ImagePicker.pickImage(source: ImageSource.camera)
+    await ImagePicker.pickImage(source: ImageSource.camera);
+    }
     // ignore: deprecated_member_use
-        : await ImagePicker.pickImage(source: ImageSource.gallery);
+     //   : await ImagePicker.pickImage(source: ImageSource.gallery);
 
     return selectedImage;
   }
