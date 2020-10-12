@@ -1,8 +1,8 @@
-import 'package:capstone_agomin/Sns/login_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../Sns/login_screen.dart';
 import 'mainPage.dart';
 import 'loading_page.dart';
 
