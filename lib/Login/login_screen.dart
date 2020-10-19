@@ -17,11 +17,14 @@ class _LoginScreenState extends State<LoginScreen> {
     print('login_page created');
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: new Color(0xfff8faf8),
-          centerTitle: true,
-          elevation: 1.0,
-          title: SizedBox(
-              height: 35.0, child: Image.asset("assets/insta_logo.png"))),
+        backgroundColor: new Color(0xfff8faf8),
+        centerTitle: true,
+        elevation: 1.0,
+        title: Text(
+          'Agomin',
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
       body: Center(
         child: GestureDetector(
           child: Container(
