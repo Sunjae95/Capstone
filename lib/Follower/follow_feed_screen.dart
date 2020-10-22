@@ -142,48 +142,52 @@ class _FollowFeedScreenState extends State<FollowFeedScreen> {
                                     name: list[index].data()['postOwnerName'],
                                   ))));
                     },
-                    child: new Container(
-                      height: 40.0,
-                      width: 40.0,
-                      decoration: new BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: new DecorationImage(
-                            fit: BoxFit.fill,
-                            image: new NetworkImage(
-                                list[index].data()['postOwnerPhotoUrl'])),
-                      ),
+                    child: Row(
+                      children: [
+                        Container(
+                          height: 40.0,
+                          width: 40.0,
+                          decoration: new BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: new DecorationImage(
+                                fit: BoxFit.fill,
+                                image: new NetworkImage(
+                                    list[index].data()['postOwnerPhotoUrl'])),
+                          ),
+                        ),
+                        new SizedBox(
+                          width: 10.0,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: ((context) =>
+                                            UserProfileScreen(
+                                              name: list[index]
+                                                  .data()['postOwnerName'],
+                                            ))));
+                              },
+                              child: new Text(
+                                list[index].data()['postOwnerName'],
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            list[index].data()['location'] != null
+                                ? new Text(
+                                    list[index].data()['location'],
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                : Container(),
+                          ],
+                        )
+                      ],
                     ),
                   ),
-                  new SizedBox(
-                    width: 10.0,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: ((context) =>
-                                      UserProfileScreen(
-                                        name:
-                                            list[index].data()['postOwnerName'],
-                                      ))));
-                        },
-                        child: new Text(
-                          list[index].data()['postOwnerName'],
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      list[index].data()['location'] != null
-                          ? new Text(
-                              list[index].data()['location'],
-                              style: TextStyle(color: Colors.grey),
-                            )
-                          : Container(),
-                    ],
-                  )
                 ],
               ),
               new IconButton(

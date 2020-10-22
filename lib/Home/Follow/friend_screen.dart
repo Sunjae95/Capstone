@@ -1,7 +1,6 @@
 import 'package:capstone_agomin/Helper/repository.dart';
 import 'package:capstone_agomin/Helper/user.dart';
 import 'package:capstone_agomin/Home/Follow/friend_chat_screen.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatefulWidget {

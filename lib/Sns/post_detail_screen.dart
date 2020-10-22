@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone_agomin/Helper/repository.dart';
 import 'package:capstone_agomin/Helper/user.dart';
@@ -9,7 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'comments_screen.dart';
 import '../Helper/like.dart';
 import 'likes_screen.dart';
-
+import 'other_user_profile_screen.dart';
 
 class PostDetailScreen extends StatefulWidget {
   final DocumentSnapshot documentSnapshot;
@@ -31,7 +30,10 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
         appBar: AppBar(
           elevation: 1,
           backgroundColor: new Color(0xfff8faf8),
-          title: Text('Photo'),
+          title: Text(
+            'Photo',
+            style: TextStyle(color: Colors.black),
+          ),
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -45,34 +47,54 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      new Container(
-                        height: 40.0,
-                        width: 40.0,
-                        decoration: new BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: new DecorationImage(
-                              fit: BoxFit.fill,
-                              image: new NetworkImage(widget.documentSnapshot.data()['postOwnerPhotoUrl'])),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) => UserProfileScreen(
+                                        name: widget.documentSnapshot
+                                            .data()['postOwnerName'],
+                                      ))));
+                        },
+                        child: Row(
+                          children: [
+                            Container(
+                              height: 40.0,
+                              width: 40.0,
+                              decoration: new BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: new DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: new NetworkImage(widget
+                                        .documentSnapshot
+                                        .data()['postOwnerPhotoUrl'])),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                new Text(
+                                  widget.documentSnapshot
+                                      .data()['postOwnerName'],
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                widget.documentSnapshot.data()['location'] !=
+                                        null
+                                    ? new Text(
+                                        widget.documentSnapshot
+                                            .data()['location'],
+                                        style: TextStyle(color: Colors.grey),
+                                      )
+                                    : Container(),
+                              ],
+                            )
+                          ],
                         ),
                       ),
-                      new SizedBox(
-                        width: 10.0,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          new Text(
-                            widget.documentSnapshot.data()['postOwnerName'],
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          widget.documentSnapshot.data()['location'] != null
-                              ? new Text(
-                                  widget.documentSnapshot.data()['location'],
-                                  style: TextStyle(color: Colors.grey),
-                                )
-                              : Container(),
-                        ],
-                      )
                     ],
                   ),
                   new IconButton(
@@ -91,7 +113,6 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
               height: 250.0,
               fit: BoxFit.cover,
             ),
-           
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(
@@ -124,8 +145,6 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                               //saveLikeValue(_isLiked);
                               postUnlike(widget.documentSnapshot.reference);
                             }
-
-                           
                           }),
                       new SizedBox(
                         width: 16.0,
@@ -155,11 +174,9 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                 ],
               ),
             ),
-
-
             FutureBuilder(
-              future: _repository
-                  .fetchPostLikes(widget.documentSnapshot.reference),
+              future:
+                  _repository.fetchPostLikes(widget.documentSnapshot.reference),
               builder: ((context,
                   AsyncSnapshot<List<DocumentSnapshot>> likesSnapshot) {
                 if (likesSnapshot.hasData) {
@@ -191,7 +208,6 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                 }
               }),
             ),
-
             Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -201,7 +217,9 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                         children: <Widget>[
                           Wrap(
                             children: <Widget>[
-                              Text(widget.documentSnapshot.data()['postOwnerName'],
+                              Text(
+                                  widget.documentSnapshot
+                                      .data()['postOwnerName'],
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)),
                               Padding(
@@ -218,7 +236,6 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                         ],
                       )
                     : commentWidget(widget.documentSnapshot.reference)),
-
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),

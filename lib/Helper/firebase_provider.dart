@@ -25,7 +25,7 @@ class FirebaseProvider {
 
   Future<void> addDataToDb(User currentUser) async {
     print("Inside addDataToDb Method");
-    
+
     _firestore
         .collection("display_names")
         .doc(currentUser.displayName)
