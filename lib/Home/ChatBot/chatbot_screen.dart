@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'chatMessage.dart';
+import 'chatbot_detail.dart';
 import 'package:flutter_dialogflow/dialogflow_v2.dart';
 
 class AgominChat extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  _AgominChatState createState() => _AgominChatState();
 }
 
-class _MyAppState extends State<AgominChat> {
+class _AgominChatState extends State<AgominChat> {
   List<ChatMessage> messages = <ChatMessage>[];
 
 //messagInsert.text를 response함으로써 dialogflow에 대답 전달
@@ -39,29 +39,30 @@ class _MyAppState extends State<AgominChat> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Agomin Chat'),
-          backgroundColor: Colors.deepOrange,
+          backgroundColor: new Color(0xfff8faf8),
+          centerTitle: true,
+          title: Text('챗봇', style: TextStyle(color: Colors.black)),
         ),
         body: Container(
             //밑에서 얼마나 띄어져있는지
             //padding: EdgeInsets.only(bottom: 10.0),
-            color: bg,
+
             child: Column(
-              children: <Widget>[
-                //채팅창 리스트
-                Flexible(child: ChatList()),
-                //구분선
-                Divider(
-                  height: 3.0,
-                ),
-                //입력칸
-                Container(
-                  color: Colors.white,
-                  //margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: inputText(),
-                ),
-              ],
-            )));
+          children: <Widget>[
+            //채팅창 리스트
+            Flexible(child: ChatList()),
+            //구분선
+            Divider(
+              height: 3.0,
+            ),
+            //입력칸
+            Container(
+              color: Colors.white,
+              //margin: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: inputText(),
+            ),
+          ],
+        )));
   }
 
   //채팅

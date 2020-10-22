@@ -1,4 +1,4 @@
-import 'package:capstone_agomin/Home/insta_home_screen.dart';
+import 'package:capstone_agomin/Home/tap_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:capstone_agomin/Helper/repository.dart';
@@ -14,7 +14,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print('login_page created');
     return Scaffold(
       appBar: AppBar(
         backgroundColor: new Color(0xfff8faf8),
@@ -67,14 +66,14 @@ class _LoginScreenState extends State<LoginScreen> {
         _repository.addDataToDb(user).then((value) {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) {
-            return InstaHomeScreen();
+            return HomeScreen();
           }));
         });
       } else {
         print("INSIDE ELSE");
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) {
-          return InstaHomeScreen();
+          return HomeScreen();
         }));
       }
     });

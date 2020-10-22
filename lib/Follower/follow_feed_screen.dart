@@ -9,18 +9,17 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
-import 'chat_screen.dart';
-import 'comments_screen.dart';
-import 'insta_friend_profile_screen.dart';
+import '../Sns/comments_screen.dart';
+import '../Sns/other_user_profile_screen.dart';
 import '../Helper/like.dart';
-import 'likes_screen.dart';
+import '../Sns/likes_screen.dart';
 
-class InstaFeedScreen extends StatefulWidget {
+class FollowFeedScreen extends StatefulWidget {
   @override
-  _InstaFeedScreenState createState() => _InstaFeedScreenState();
+  _FollowFeedScreenState createState() => _FollowFeedScreenState();
 }
 
-class _InstaFeedScreenState extends State<InstaFeedScreen> {
+class _FollowFeedScreenState extends State<FollowFeedScreen> {
   var _repository = Repository();
   Member user, currentUser, followingUser;
   IconData icon;
@@ -74,21 +73,6 @@ class _InstaFeedScreenState extends State<InstaFeedScreen> {
           'Agomin',
           style: TextStyle(color: Colors.black),
         ),
-        actions: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(right: 12.0),
-            child: IconButton(
-              icon: Icon(
-                Icons.send,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: ((context) => ChatScreen())));
-              },
-            ),
-          )
-        ],
       ),
       body: currentUser != null
           ? Padding(
@@ -154,7 +138,7 @@ class _InstaFeedScreenState extends State<InstaFeedScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: ((context) => InstaFriendProfileScreen(
+                              builder: ((context) => UserProfileScreen(
                                     name: list[index].data()['postOwnerName'],
                                   ))));
                     },
@@ -182,7 +166,7 @@ class _InstaFeedScreenState extends State<InstaFeedScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: ((context) =>
-                                      InstaFriendProfileScreen(
+                                      UserProfileScreen(
                                         name:
                                             list[index].data()['postOwnerName'],
                                       ))));

@@ -1,9 +1,8 @@
 import 'package:capstone_agomin/Helper/repository.dart';
 import 'package:capstone_agomin/Helper/user.dart';
+import 'package:capstone_agomin/Home/Follow/friend_chat_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
-import 'chat_detail_screen.dart';
 
 class ChatScreen extends StatefulWidget {
   @override
@@ -33,8 +32,9 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: Text('Search'),
+          backgroundColor: new Color(0xfff8faf8),
+          centerTitle: true,
+          title: Text('Followers', style: TextStyle(color: Colors.black)),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.search),

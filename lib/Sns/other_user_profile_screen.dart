@@ -1,55 +1,153 @@
 import 'dart:async';
-import 'package:async/async.dart';
-import 'package:capstone_agomin/Login/root_page.dart';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone_agomin/Sns/post_detail_screen.dart';
 import 'package:capstone_agomin/Helper/repository.dart';
 import 'package:capstone_agomin/Helper/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-
-import '../Sns/comments_screen.dart';
-import 'edit_profile_screen.dart';
+import 'comments_screen.dart';
 import '../Helper/like.dart';
-import '../Sns/likes_screen.dart';
+import 'likes_screen.dart';
 
-class InstaProfileScreen extends StatefulWidget {
-  // InstaProfileScreen();
+
+class UserProfileScreen extends StatefulWidget {
+  final String name;
+  UserProfileScreen({this.name});
 
   @override
-  _InstaProfileScreenState createState() => _InstaProfileScreenState();
+  _UserProfileScreenState createState() =>
+      _UserProfileScreenState();
 }
 
-class _InstaProfileScreenState extends State<InstaProfileScreen> {
+class _UserProfileScreenState extends State<UserProfileScreen> {
+  String currentUserId, followingUserId;
   var _repository = Repository();
   Color _gridColor = Colors.blue;
   Color _listColor = Colors.grey;
   bool _isGridActive = true;
-  Member _user;
+  Member _user, currentuser;
   IconData icon;
   Color color;
   Future<List<DocumentSnapshot>> _future;
   bool _isLiked = false;
+  bool isFollowing = false;
+  bool followButtonClicked = false;
+  int postCount = 0;
+  int followerCount = 0;
+  int followingCount = 0;
+
+  fetchUidBySearchedName(String name) async {
+    print("NAME : ${name}");
+    String uid = await _repository.fetchUidBySearchedName(name);
+    setState(() {
+      followingUserId = uid;
+    });
+    fetchUserDetailsById(uid);
+    _future = _repository.retrieveUserPosts(uid);
+  }
+
+  fetchUserDetailsById(String userId) async {
+    Member user = await _repository.fetchUserDetailsById(userId);
+    setState(() {
+      _user = user;
+      print("USER : ${_user.displayName}");
+    });
+  }
 
   @override
   void initState() {
     super.initState();
-    retrieveUserDetails();
-    icon = FontAwesomeIcons.heart;
+    _repository.getCurrentUser().then((user) {
+      _repository.fetchUserDetailsById(user.uid).then((currentUser) {
+        setState(() {
+          currentuser = currentUser;
+        });
+      });
+      _repository.checkIsFollowing(widget.name, user.uid).then((value) {
+        print("VALUE : ${value}");
+        setState(() {
+          isFollowing = value;
+        });
+      });
+      setState(() {
+        currentUserId = user.uid;
+      });
+    });
+    fetchUidBySearchedName(widget.name);
   }
 
-  retrieveUserDetails() async {
-    User currentUser = await _repository.getCurrentUser();
-    Member user = await _repository.retrieveUserDetails(currentUser);
+  followUser() {
+    print('following user');
+    _repository.followUser(
+        currentUserId: currentUserId, followingUserId: followingUserId);
     setState(() {
-      _user = user;
+      isFollowing = true;
+      followButtonClicked = true;
     });
-    _future = _repository.retrieveUserPosts(_user.uid);
+  }
+
+  unfollowUser() {
+    _repository.unFollowUser(
+        currentUserId: currentUserId, followingUserId: followingUserId);
+    setState(() {
+      isFollowing = false;
+      followButtonClicked = true;
+    });
+  }
+
+  Widget buildButton(
+      {String text,
+      Color backgroundcolor,
+      Color textColor,
+      Color borderColor,
+      Function function}) {
+    return GestureDetector(
+      onTap: function,
+      child: Container(
+        width: 210.0,
+        height: 30.0,
+        decoration: BoxDecoration(
+            color: backgroundcolor,
+            borderRadius: BorderRadius.circular(4.0),
+            border: Border.all(color: borderColor)),
+        child: Center(
+          child: Text(text, style: TextStyle(color: textColor)),
+        ),
+      ),
+    );
+  }
+
+  Widget buildProfileButton() {
+    // already following user - should show unfollow button
+    if (isFollowing) {
+      return buildButton(
+        text: "Unfollow",
+        backgroundcolor: Colors.white,
+        textColor: Colors.black,
+        borderColor: Colors.grey,
+        function: unfollowUser,
+      );
+    }
+
+    // does not follow user - should show follow button
+    if (!isFollowing) {
+      return buildButton(
+        text: "Follow",
+        backgroundcolor: Colors.blue,
+        textColor: Colors.white,
+        borderColor: Colors.blue,
+        function: followUser,
+      );
+    }
+
+    return buildButton(
+        text: "loading...",
+        backgroundcolor: Colors.white,
+        textColor: Colors.black,
+        borderColor: Colors.grey);
   }
 
   @override
@@ -58,27 +156,8 @@ class _InstaProfileScreenState extends State<InstaProfileScreen> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: new Color(0xfff8faf8),
-          centerTitle: true,
-          title: Text(
-            'Agomin',
-            style: TextStyle(color: Colors.black),
-          ),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.settings_power),
-              color: Colors.black,
-              onPressed: () {
-                _repository.signOut().then((v) {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) {
-                    return MaterialApp(
-                      home: RootPage(),
-                    );
-                  }));
-                });
-              },
-            )
-          ],
+          elevation: 1,
+          title: Text('Profile'),
         ),
         body: _user != null
             ? ListView(
@@ -110,7 +189,7 @@ class _InstaProfileScreenState extends State<InstaProfileScreen> {
                                 StreamBuilder(
                                   stream: _repository
                                       .fetchStats(
-                                          uid: _user.uid, label: 'posts')
+                                          uid: followingUserId, label: 'posts')
                                       .asStream(),
                                   builder: ((context,
                                       AsyncSnapshot<List<DocumentSnapshot>>
@@ -120,16 +199,16 @@ class _InstaProfileScreenState extends State<InstaProfileScreen> {
                                           snapshot.data.length.toString(),
                                           'posts');
                                     } else {
-                                      return Center(
-                                        child: CircularProgressIndicator(),
-                                      );
+                                      return Center(child: CircularProgressIndicator(),);
                                     }
                                   }),
                                 ),
+
                                 StreamBuilder(
                                   stream: _repository
                                       .fetchStats(
-                                          uid: _user.uid, label: 'followers')
+                                          uid: followingUserId,
+                                          label: 'followers')
                                       .asStream(),
                                   builder: ((context,
                                       AsyncSnapshot<List<DocumentSnapshot>>
@@ -143,16 +222,16 @@ class _InstaProfileScreenState extends State<InstaProfileScreen> {
                                             'followers'),
                                       );
                                     } else {
-                                      return Center(
-                                        child: CircularProgressIndicator(),
-                                      );
+                                      return Center(child: CircularProgressIndicator(),);
                                     }
                                   }),
                                 ),
+
                                 StreamBuilder(
                                   stream: _repository
                                       .fetchStats(
-                                          uid: _user.uid, label: 'following')
+                                          uid: followingUserId,
+                                          label: 'following')
                                       .asStream(),
                                   builder: ((context,
                                       AsyncSnapshot<List<DocumentSnapshot>>
@@ -166,43 +245,18 @@ class _InstaProfileScreenState extends State<InstaProfileScreen> {
                                             'following'),
                                       );
                                     } else {
-                                      return Center(
-                                        child: CircularProgressIndicator(),
-                                      );
+                                      return Center(child: CircularProgressIndicator(),);
                                     }
                                   }),
                                 ),
+
+                                //   detailsWidget(_user.posts, 'posts'),
                               ],
                             ),
-                            GestureDetector(
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 12.0, left: 20.0, right: 20.0),
-                                child: Container(
-                                  width: 210.0,
-                                  height: 30.0,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      border: Border.all(color: Colors.grey)),
-                                  child: Center(
-                                    child: Text('Edit Profile',
-                                        style: TextStyle(color: Colors.black)),
-                                  ),
-                                ),
-                              ),
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: ((context) =>
-                                            EditProfileScreen(
-                                                photoUrl: _user.photoUrl,
-                                                email: _user.email,
-                                                bio: _user.bio,
-                                                name: _user.displayName,
-                                                phone: _user.phone))));
-                              },
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 12.0, left: 20.0, right: 20.0),
+                              child: buildProfileButton(),
                             )
                           ],
                         ),
@@ -279,7 +333,6 @@ class _InstaProfileScreenState extends State<InstaProfileScreen> {
         ? FutureBuilder(
             future: _future,
             builder:
-                // ignore: missing_return
                 ((context, AsyncSnapshot<List<DocumentSnapshot>> snapshot) {
               if (snapshot.hasData) {
                 if (snapshot.connectionState == ConnectionState.done) {
@@ -309,7 +362,7 @@ class _InstaProfileScreenState extends State<InstaProfileScreen> {
                               MaterialPageRoute(
                                   builder: ((context) => PostDetailScreen(
                                         user: _user,
-                                        currentuser: _user,
+                                        currentuser: currentuser,
                                         documentSnapshot: snapshot.data[index],
                                       ))));
                         },
@@ -340,7 +393,8 @@ class _InstaProfileScreenState extends State<InstaProfileScreen> {
                           itemBuilder: ((context, index) => ListItem(
                               list: snapshot.data,
                               index: index,
-                              user: _user))));
+                              user: _user,
+                              currentuser: currentuser))));
                 } else {
                   return Center(
                     child: CircularProgressIndicator(),
@@ -375,10 +429,10 @@ class _InstaProfileScreenState extends State<InstaProfileScreen> {
 
 class ListItem extends StatefulWidget {
   List<DocumentSnapshot> list;
-  Member user;
+  Member user, currentuser;
   int index;
 
-  ListItem({this.list, this.user, this.index});
+  ListItem({this.list, this.user, this.index, this.currentuser});
 
   @override
   _ListItemState createState() => _ListItemState();
@@ -405,7 +459,7 @@ class _ListItemState extends State<ListItem> {
                   MaterialPageRoute(
                       builder: ((context) => CommentsScreen(
                             documentReference: reference,
-                            user: widget.user,
+                            user: widget.currentuser,
                           ))));
             },
           );
@@ -420,7 +474,6 @@ class _ListItemState extends State<ListItem> {
   void initState() {
     super.initState();
     print("INDEX : ${widget.index}");
-    //_future =_repository.fetchPostLikes(widget.list[widget.index].reference);
   }
 
   @override
@@ -506,13 +559,13 @@ class _ListItemState extends State<ListItem> {
                           setState(() {
                             _isLiked = true;
                           });
-                          // saveLikeValue(_isLiked);
+                          
                           postLike(widget.list[widget.index].reference);
                         } else {
                           setState(() {
                             _isLiked = false;
                           });
-                          //saveLikeValue(_isLiked);
+                         
                           postUnlike(widget.list[widget.index].reference);
                         }
                       }),
@@ -527,7 +580,7 @@ class _ListItemState extends State<ListItem> {
                               builder: ((context) => CommentsScreen(
                                     documentReference:
                                         widget.list[widget.index].reference,
-                                    user: widget.user,
+                                    user: widget.currentuser,
                                   ))));
                     },
                     child: new Icon(
@@ -591,8 +644,8 @@ class _ListItemState extends State<ListItem> {
                               style: TextStyle(fontWeight: FontWeight.bold)),
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0),
-                            child: Text(
-                                widget.list[widget.index].data()['caption']),
+                            child:
+                                Text(widget.list[widget.index].data()['caption']),
                           )
                         ],
                       ),
@@ -613,13 +666,13 @@ class _ListItemState extends State<ListItem> {
 
   void postLike(DocumentReference reference) {
     var _like = Like(
-        ownerName: widget.user.displayName,
-        ownerPhotoUrl: widget.user.photoUrl,
-        ownerUid: widget.user.uid,
+        ownerName: widget.currentuser.displayName,
+        ownerPhotoUrl: widget.currentuser.photoUrl,
+        ownerUid: widget.currentuser.uid,
         timeStamp: FieldValue.serverTimestamp());
     reference
         .collection('likes')
-        .doc(widget.user.uid)
+        .doc(widget.currentuser.uid)
         .set(_like.toMap(_like))
         .then((value) {
       print("Post Liked");
@@ -627,7 +680,11 @@ class _ListItemState extends State<ListItem> {
   }
 
   void postUnlike(DocumentReference reference) {
-    reference.collection("likes").doc(widget.user.uid).delete().then((value) {
+    reference
+        .collection("likes")
+        .doc(widget.currentuser.uid)
+        .delete()
+        .then((value) {
       print("Post Unliked");
     });
   }

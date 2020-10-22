@@ -9,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 
 import 'package:path_provider/path_provider.dart';
 
-import '../Helper/message.dart';
+import '../../Helper/message.dart';
 
 class ChatDetailScreen extends StatefulWidget {
   final String photoUrl;
@@ -74,7 +74,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
-                child: Text(widget.name),
+                child: Text(widget.name, style: TextStyle(color: Colors.black)),
               ),
             ],
           ),
@@ -87,9 +87,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                 )
               : Column(
                   children: <Widget>[
-                   
                     ChatMessagesListWidget(),
-                    
                     chatInputWidget(),
                     SizedBox(
                       height: 20.0,
@@ -161,6 +159,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
       ),
     );
   }
+
   final picker = ImagePicker();
 
   Future<void> pickImage({String source}) async {
@@ -185,7 +184,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
     int rand = Random().nextInt(10000);
 
     Im.Image image = Im.decodeImage(imageFile.readAsBytesSync());
-    Im.copyResize(image,width : 500);
+    Im.copyResize(image, width: 500);
 
     var newim2 = new File('$path/img_$rand.jpg')
       ..writeAsBytesSync(Im.encodeJpg(image, quality: 85));

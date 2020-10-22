@@ -9,14 +9,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 //체크포인트
 import 'package:flutter/material.dart';
 
-import '../Sns/insta_friend_profile_screen.dart';
+import '../Sns/other_user_profile_screen.dart';
 
-class InstaSearchScreen extends StatefulWidget {
+class SearchScreen extends StatefulWidget {
   @override
-  _InstaSearchScreenState createState() => _InstaSearchScreenState();
+  _SearchScreenState createState() => _SearchScreenState();
 }
 
-class _InstaSearchScreenState extends State<InstaSearchScreen> {
+class _SearchScreenState extends State<SearchScreen> {
   var _repository = Repository();
   List<DocumentSnapshot> list = List<DocumentSnapshot>();
   Member _user = Member();
@@ -155,7 +155,7 @@ class DataSearch extends SearchDelegate<String> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: ((context) => InstaFriendProfileScreen(
+                      builder: ((context) => UserProfileScreen(
                           name: suggestionsList[index].displayName))));
             },
             leading: CircleAvatar(

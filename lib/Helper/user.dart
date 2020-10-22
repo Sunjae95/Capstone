@@ -1,4 +1,3 @@
-
 class Member {
 
    String uid;

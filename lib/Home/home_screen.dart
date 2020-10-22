@@ -1,23 +1,23 @@
-import 'package:capstone_agomin/Animation/animation_screen.dart';
-import 'package:capstone_agomin/ChatBot/chatScreen.dart';
-import 'package:capstone_agomin/GPS/gps_screen.dart';
 import 'package:capstone_agomin/Helper/repository.dart';
 import 'package:capstone_agomin/Helper/user.dart';
-import 'package:capstone_agomin/Sns/chat_screen.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class InstaActivityScreen extends StatefulWidget {
+import 'Animation/animation_screen.dart';
+import 'ChatBot/chatbot_screen.dart';
+import 'Follow/friend_screen.dart';
+import 'GPS/gps_screen.dart';
+
+class ActivityScreen extends StatefulWidget {
   @override
-  _InstaActivityScreenState createState() => _InstaActivityScreenState();
+  _ActivityScreenState createState() => _ActivityScreenState();
 }
 
-class _InstaActivityScreenState extends State<InstaActivityScreen> {
+class _ActivityScreenState extends State<ActivityScreen> {
   var _repository = Repository();
-  Color _gridColor = Colors.blue;
-  Color _listColor = Colors.grey;
   bool _isGridActive = true;
   Member _user;
   IconData icon;

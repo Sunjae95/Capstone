@@ -10,17 +10,20 @@ import 'package:image/image.dart' as Im;
 import 'package:path_provider/path_provider.dart';
 import 'dart:math';
 
-import '../Home/insta_home_screen.dart';
+import '../Home/tap_screen.dart';
+import 'upload_screen.dart';
 
-class InstaUploadPhotoScreen extends StatefulWidget {
+// ignore: must_be_immutable
+class UploadDetailPhotoScreen extends StatefulWidget {
   File imageFile;
-  InstaUploadPhotoScreen({this.imageFile});
+  UploadDetailPhotoScreen({this.imageFile});
 
   @override
-  _InstaUploadPhotoScreenState createState() => _InstaUploadPhotoScreenState();
+  _UploadDetailPhotoScreenState createState() =>
+      _UploadDetailPhotoScreenState();
 }
 
-class _InstaUploadPhotoScreenState extends State<InstaUploadPhotoScreen> {
+class _UploadDetailPhotoScreenState extends State<UploadDetailPhotoScreen> {
   var _locationController;
   var _captionController;
   final _repository = Repository();
@@ -52,7 +55,10 @@ class _InstaUploadPhotoScreenState extends State<InstaUploadPhotoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('New Post'),
+        title: Text(
+          'New Post',
+          style: TextStyle(color: Colors.black),
+        ),
         backgroundColor: new Color(0xfff8faf8),
         elevation: 1.0,
         actions: <Widget>[
@@ -80,7 +86,7 @@ class _InstaUploadPhotoScreenState extends State<InstaUploadPhotoScreen> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: ((context) => InstaHomeScreen())));
+                                  builder: ((context) => UploadScreen())));
                         }).catchError((e) =>
                                 print("Error adding current post to db : $e"));
                       }).catchError((e) {
@@ -171,7 +177,7 @@ class _InstaUploadPhotoScreenState extends State<InstaUploadPhotoScreen> {
                           child: GestureDetector(
                             child: Chip(
                               label: Text(addresses.data.first.adminArea +
-                                       ", " +
+                                  ", " +
                                   addresses.data.first.locality),
                             ),
                             onTap: () {
@@ -227,8 +233,6 @@ class _InstaUploadPhotoScreenState extends State<InstaUploadPhotoScreen> {
     Future<List<Address>> addresses;
 
     Location location = new Location();
-
-
 
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {

@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'insta_upload_photo_screen.dart';
+import 'upload_detail_photo_screen.dart';
 
-class InstaAddScreen extends StatefulWidget {
+class UploadScreen extends StatefulWidget {
   @override
-  _InstaAddScreenState createState() => _InstaAddScreenState();
+  _UploadScreenState createState() => _UploadScreenState();
 }
 
-class _InstaAddScreenState extends State<InstaAddScreen> {
+class _UploadScreenState extends State<UploadScreen> {
   File imageFile;
 
   Future<File> _pickImage(String action) async {
@@ -53,7 +53,7 @@ class _InstaAddScreenState extends State<InstaAddScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: ((context) => InstaUploadPhotoScreen(
+                            builder: ((context) => UploadDetailPhotoScreen(
                                   imageFile: imageFile,
                                 ))));
                   });
@@ -69,7 +69,7 @@ class _InstaAddScreenState extends State<InstaAddScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: ((context) => InstaUploadPhotoScreen(
+                            builder: ((context) => UploadDetailPhotoScreen(
                                   imageFile: imageFile,
                                 ))));
                   });

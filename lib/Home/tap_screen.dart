@@ -1,20 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'insta_activity_screen.dart';
-import '../Sns/insta_add_screen.dart';
-import '../Sns/insta_feed_screen.dart';
-import '../Profile/insta_profile_screen.dart';
-import '../Search/insta_search_screen.dart';
+import 'home_screen.dart';
+import '../Upload/upload_screen.dart';
+import '../Follower/follow_feed_screen.dart';
+import '../Profile/profile_screen.dart';
+import '../Search/search_screen.dart';
 
-class InstaHomeScreen extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   @override
-  _InstaHomeScreenState createState() => _InstaHomeScreenState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
 PageController pageController;
 
-class _InstaHomeScreenState extends State<InstaHomeScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   int _page = 0;
 
   void navigationTapped(int page) {
@@ -45,17 +45,17 @@ class _InstaHomeScreenState extends State<InstaHomeScreen> {
     return Scaffold(
       body: new PageView(
         children: [
-          new Container(color: Colors.white, child: InstaActivityScreen()),
+          new Container(color: Colors.white, child: ActivityScreen()),
           new Container(
             color: Colors.white,
-            child: InstaFeedScreen(),
+            child: FollowFeedScreen(),
           ),
-          new Container(color: Colors.white, child: InstaSearchScreen()),
+          new Container(color: Colors.white, child: SearchScreen()),
           new Container(
             color: Colors.white,
-            child: InstaAddScreen(),
+            child: UploadScreen(),
           ),
-          new Container(color: Colors.white, child: InstaProfileScreen()),
+          new Container(color: Colors.white, child: ProfileScreen()),
         ],
         controller: pageController,
         physics: new NeverScrollableScrollPhysics(),
