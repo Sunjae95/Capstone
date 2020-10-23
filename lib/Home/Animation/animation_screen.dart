@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audio_cache.dart';
 
 class AgominAnimation extends StatefulWidget {
   @override
@@ -6,6 +7,8 @@ class AgominAnimation extends StatefulWidget {
 }
 
 class _AgominAnimationState extends State<AgominAnimation> {
+  final AudioCache _player = AudioCache();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,8 +20,28 @@ class _AgominAnimationState extends State<AgominAnimation> {
           style: TextStyle(color: Colors.black),
         ),
       ),
-      body: Center(
-        child: Text('Animation 구현중...'),
+      body: Container(
+        child:Column(children: [
+          RaisedButton(
+          child: Text('clicker'),
+          onPressed: () {
+            _player.play('click.mp3');
+          },
+        ),
+        RaisedButton(
+          child: Text('좋은 음악'),
+          onPressed: () {
+            _player.play('click.mp3');
+          },
+        ),
+        RaisedButton(
+          child: Text('수면음악'),
+          onPressed: () {
+            _player.play('click.mp3');
+          },
+        ),
+        ],),
+        
       ),
     );
   }

@@ -207,7 +207,7 @@ class FirebaseProvider {
         uid = uidList[i].id;
       }
     }
-    print("UID DOC ID: ${uid}");
+    print("UID DOC ID: $uid");
     return uid;
   }
 
@@ -331,13 +331,17 @@ class FirebaseProvider {
 
   Future<List<Member>> fetchAllUsers(User user) async {
     List<Member> userList = List<Member>();
+
     QuerySnapshot querySnapshot = await _firestore.collection("users").get();
+
     for (var i = 0; i < querySnapshot.docs.length; i++) {
       if (querySnapshot.docs[i].id != user.uid) {
         userList.add(Member.fromMap(querySnapshot.docs[i].data()));
+
         //userList.add(querySnapshot.documents[i].data[User.fromMap(mapData)]);
       }
     }
+
     print("USERSLIST : ${userList.length}");
     return userList;
   }
@@ -356,7 +360,7 @@ class FirebaseProvider {
     map['timestamp'] = _message.timestamp;
     map['photoUrl'] = _message.photoUrl;
 
-    print("Map : ${map}");
+    print("Map : $map");
     _firestore
         .collection("messages")
         .doc(_message.senderUid)

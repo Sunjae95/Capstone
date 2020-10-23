@@ -18,7 +18,7 @@ class _ChatScreenState extends State<ChatScreen> {
     super.initState();
     _repository.getCurrentUser().then((user) {
       print("USER : ${user.displayName}");
-
+      //follower load
       _repository.fetchAllUsers(user).then((updatedList) {
         setState(() {
           usersList = updatedList.cast<Member>();
@@ -45,6 +45,7 @@ class _ChatScreenState extends State<ChatScreen> {
             )
           ],
         ),
+        //follower load
         body: ListView.builder(
           itemCount: usersList.length,
           itemBuilder: ((context, index) {
