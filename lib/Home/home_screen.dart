@@ -1,5 +1,6 @@
 import 'package:capstone_agomin/Helper/repository.dart';
 import 'package:capstone_agomin/Helper/user.dart';
+import 'package:capstone_agomin/Home/ChatBot/chatbot_screen.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'Animation/animation_screen.dart';
-import 'ChatBot/chatbot_screen.dart';
 import 'Follow/friend_screen.dart';
 import 'GPS/gps_screen.dart';
 
@@ -18,12 +18,13 @@ class ActivityScreen extends StatefulWidget {
 
 class _ActivityScreenState extends State<ActivityScreen> {
   var _repository = Repository();
-  bool _isGridActive = true;
+  // bool _isGridActive = true;
   Member _user;
   IconData icon;
   Color color;
+  // ignore: unused_field
   Future<List<DocumentSnapshot>> _future;
-  bool _isLiked = false;
+  // bool _isLiked = false;
 
   @override
   void initState() {
@@ -106,14 +107,51 @@ class _ActivityScreenState extends State<ActivityScreen> {
           ? Center(
               child: Column(
                 children: [
-                  Container(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                          iconSize: 120.0,
+                          icon: IconTheme(
+                            data: new IconThemeData(
+                              color: null,
+                            ),
+                            child: Image(
+                              image: AssetImage('assets/follower.png'),
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) => ChatScreen())));
+                          }),
+                      IconButton(
+                          iconSize: 120.0,
+                          icon: IconTheme(
+                            data: new IconThemeData(
+                              color: null,
+                            ),
+                            child: Image(
+                              image: AssetImage('assets/animation.png'),
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) => AgominAnimation())));
+                          }),
+                    ],
+                  ),
+                  Center(
                     child: Padding(
                       padding: const EdgeInsets.only(top: 20.0, left: 20.0),
                       child: Container(
                           width: 200.0,
                           height: 200.0,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(80.0),
+                            borderRadius: BorderRadius.circular(120.0),
                             image: DecorationImage(
                                 image: _user.photoUrl.isEmpty
                                     ? AssetImage('assets/no_image.png')
@@ -122,167 +160,52 @@ class _ActivityScreenState extends State<ActivityScreen> {
                           )),
                     ),
                   ),
-                  Container(
+                  Center(
                     child: Text(_user.displayName,
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                             fontSize: 20.0)),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 25.0, top: 10.0),
+                  Center(
+                    // padding: const EdgeInsets.only(left: 25.0, top: 10.0),
                     child: _user.bio.isNotEmpty ? Text(_user.bio) : Container(),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                        height: 85,
-                        width: 85,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(5),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
-                                  spreadRadius: 6,
-                                  blurRadius: 4),
-                            ]),
-                        child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: <Widget>[
-                                IconButton(
-                                    icon: Icon(Icons.assignment_ind),
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: ((context) =>
-                                                  ChatScreen())));
-                                    }),
-                                Text(
-                                  'follow',
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 12),
-                                ),
-                              ],
-                            )),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                        height: 85,
-                        width: 85,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(5),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
-                                  spreadRadius: 6,
-                                  blurRadius: 4),
-                            ]),
-                        child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: <Widget>[
-                                IconButton(
-                                    icon: Icon(Icons.assignment_ind),
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                AgominAnimation()),
-                                      );
-                                    }),
-                                Text(
-                                  'Animation',
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 12),
-                                ),
-                              ],
-                            )),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                        height: 85,
-                        width: 85,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(5),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
-                                  spreadRadius: 6,
-                                  blurRadius: 4),
-                            ]),
-                        child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: <Widget>[
-                                IconButton(
-                                    icon: Icon(Icons.assignment_ind),
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => GPS()),
-                                      );
-                                    }),
-                                Text(
-                                  'GPS',
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 12),
-                                ),
-                              ],
-                            )),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                        height: 85,
-                        width: 85,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(5),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
-                                  spreadRadius: 6,
-                                  blurRadius: 4),
-                            ]),
-                        child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: <Widget>[
-                                IconButton(
-                                    icon: Icon(Icons.assignment_ind),
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => AgominChat()),
-                                      );
-                                    }),
-                                Text(
-                                  '챗봇',
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 12),
-                                ),
-                              ],
-                            )),
-                      ),
+                      IconButton(
+                          iconSize: 120.0,
+                          icon: IconTheme(
+                            data: new IconThemeData(
+                              color: null,
+                            ),
+                            child: Image(
+                              image: AssetImage('assets/chatbot.png'),
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) => AgominChat())));
+                          }),
+                      IconButton(
+                          iconSize: 120.0,
+                          icon: IconTheme(
+                            data: new IconThemeData(
+                              color: null,
+                            ),
+                            child: Image(
+                              image: AssetImage('assets/GPS.png'),
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) => GPS())));
+                          }),
                     ],
                   ),
                 ],

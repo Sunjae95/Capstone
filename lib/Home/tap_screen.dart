@@ -67,26 +67,31 @@ class _HomeScreenState extends State<HomeScreen> {
           new BottomNavigationBarItem(
               icon: new Icon(Icons.star,
                   color: (_page == 0) ? Colors.black : Colors.grey),
+              // ignore: deprecated_member_use
               title: new Container(height: 0.0),
               backgroundColor: Colors.white),
           new BottomNavigationBarItem(
               icon: new Icon(Icons.home,
                   color: (_page == 1) ? Colors.black : Colors.grey),
+              // ignore: deprecated_member_use
               title: new Container(height: 0.0),
               backgroundColor: Colors.white),
           new BottomNavigationBarItem(
               icon: new Icon(Icons.search,
                   color: (_page == 2) ? Colors.black : Colors.grey),
+              // ignore: deprecated_member_use
               title: new Container(height: 0.0),
               backgroundColor: Colors.white),
           new BottomNavigationBarItem(
               icon: new Icon(Icons.add_circle,
                   color: (_page == 3) ? Colors.black : Colors.grey),
+              // ignore: deprecated_member_use
               title: new Container(height: 0.0),
               backgroundColor: Colors.white),
           new BottomNavigationBarItem(
               icon: new Icon(Icons.person,
                   color: (_page == 5) ? Colors.black : Colors.grey),
+              // ignore: deprecated_member_use
               title: new Container(height: 0.0),
               backgroundColor: Colors.white),
         ],

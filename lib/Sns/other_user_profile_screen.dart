@@ -12,14 +12,12 @@ import 'comments_screen.dart';
 import '../Helper/like.dart';
 import 'likes_screen.dart';
 
-
 class UserProfileScreen extends StatefulWidget {
   final String name;
   UserProfileScreen({this.name});
 
   @override
-  _UserProfileScreenState createState() =>
-      _UserProfileScreenState();
+  _UserProfileScreenState createState() => _UserProfileScreenState();
 }
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
@@ -31,7 +29,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   Member _user, currentuser;
   IconData icon;
   Color color;
-  Future<List<DocumentSnapshot>> _future;
+  Future<List<DocumentSnapshot>> future;
+  // ignore: unused_field
   bool _isLiked = false;
   bool isFollowing = false;
   bool followButtonClicked = false;
@@ -40,13 +39,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   int followingCount = 0;
 
   fetchUidBySearchedName(String name) async {
+    // ignore: unnecessary_brace_in_string_interps
     print("NAME : ${name}");
     String uid = await _repository.fetchUidBySearchedName(name);
     setState(() {
       followingUserId = uid;
     });
     fetchUserDetailsById(uid);
-    _future = _repository.retrieveUserPosts(uid);
+    future = _repository.retrieveUserPosts(uid);
   }
 
   fetchUserDetailsById(String userId) async {
@@ -67,6 +67,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         });
       });
       _repository.checkIsFollowing(widget.name, user.uid).then((value) {
+        // ignore: unnecessary_brace_in_string_interps
         print("VALUE : ${value}");
         setState(() {
           isFollowing = value;
@@ -199,7 +200,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                           snapshot.data.length.toString(),
                                           'posts');
                                     } else {
-                                      return Center(child: CircularProgressIndicator(),);
+                                      return Center(
+                                        child: CircularProgressIndicator(),
+                                      );
                                     }
                                   }),
                                 ),
@@ -222,7 +225,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                             'followers'),
                                       );
                                     } else {
-                                      return Center(child: CircularProgressIndicator(),);
+                                      return Center(
+                                        child: CircularProgressIndicator(),
+                                      );
                                     }
                                   }),
                                 ),
@@ -245,7 +250,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                             'following'),
                                       );
                                     } else {
-                                      return Center(child: CircularProgressIndicator(),);
+                                      return Center(
+                                        child: CircularProgressIndicator(),
+                                      );
                                     }
                                   }),
                                 ),
@@ -331,8 +338,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   Widget postImagesWidget() {
     return _isGridActive == true
         ? FutureBuilder(
-            future: _future,
+            future: future,
             builder:
+                // ignore: missing_return
                 ((context, AsyncSnapshot<List<DocumentSnapshot>> snapshot) {
               if (snapshot.hasData) {
                 if (snapshot.connectionState == ConnectionState.done) {
@@ -380,7 +388,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             }),
           )
         : FutureBuilder(
-            future: _future,
+            future: future,
             builder:
                 ((context, AsyncSnapshot<List<DocumentSnapshot>> snapshot) {
               if (snapshot.hasData) {
@@ -427,6 +435,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   }
 }
 
+// ignore: must_be_immutable
 class ListItem extends StatefulWidget {
   List<DocumentSnapshot> list;
   Member user, currentuser;
@@ -441,7 +450,7 @@ class ListItem extends StatefulWidget {
 class _ListItemState extends State<ListItem> {
   var _repository = Repository();
   bool _isLiked = false;
-  Future<List<DocumentSnapshot>> _future;
+  Future<List<DocumentSnapshot>> future;
 
   Widget commentWidget(DocumentReference reference) {
     return FutureBuilder(
@@ -559,13 +568,13 @@ class _ListItemState extends State<ListItem> {
                           setState(() {
                             _isLiked = true;
                           });
-                          
+
                           postLike(widget.list[widget.index].reference);
                         } else {
                           setState(() {
                             _isLiked = false;
                           });
-                         
+
                           postUnlike(widget.list[widget.index].reference);
                         }
                       }),
@@ -644,8 +653,8 @@ class _ListItemState extends State<ListItem> {
                               style: TextStyle(fontWeight: FontWeight.bold)),
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0),
-                            child:
-                                Text(widget.list[widget.index].data()['caption']),
+                            child: Text(
+                                widget.list[widget.index].data()['caption']),
                           )
                         ],
                       ),

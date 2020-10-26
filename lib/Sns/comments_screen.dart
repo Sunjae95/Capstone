@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 
 import 'package:capstone_agomin/Helper/user.dart';
 import '../Helper/comment.dart';
@@ -68,6 +68,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: TextFormField(
+                // ignore: missing_return
                 validator: (String input) {
                   if (input.isEmpty) {
                     return "Please enter comment";

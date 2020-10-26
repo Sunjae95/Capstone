@@ -10,6 +10,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   var _repository = Repository();
+  // ignore: unused_field
   Member _users = Member();
   List<Member> usersList = List<Member>();
 
@@ -106,7 +107,7 @@ class ChatSearch extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
+  
     return null;
   }
 

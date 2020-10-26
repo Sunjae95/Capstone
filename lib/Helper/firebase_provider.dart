@@ -70,7 +70,7 @@ class FirebaseProvider {
 
   Future<User> getCurrentUser() async {
     User currentUser;
-    currentUser = await _auth.currentUser;
+    currentUser = _auth.currentUser;
     print("EMAIL ID : ${currentUser.email}");
     return currentUser;
   }

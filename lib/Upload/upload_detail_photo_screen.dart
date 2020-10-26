@@ -10,7 +10,6 @@ import 'package:image/image.dart' as Im;
 import 'package:path_provider/path_provider.dart';
 import 'dart:math';
 
-import '../Home/tap_screen.dart';
 import 'upload_screen.dart';
 
 // ignore: must_be_immutable
@@ -30,7 +29,6 @@ class _UploadDetailPhotoScreenState extends State<UploadDetailPhotoScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _locationController = TextEditingController();
     _captionController = TextEditingController();

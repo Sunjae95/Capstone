@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:async/async.dart';
+
 import 'package:capstone_agomin/Login/root_page.dart';
 import 'package:capstone_agomin/Sns/post_detail_screen.dart';
 import 'package:capstone_agomin/Helper/repository.dart';
@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import '../Sns/comments_screen.dart';
@@ -34,6 +33,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   IconData icon;
   Color color;
   Future<List<DocumentSnapshot>> _future;
+  // ignore: unused_field
   bool _isLiked = false;
 
   @override
@@ -373,6 +373,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 }
 
+// ignore: must_be_immutable
 class ListItem extends StatefulWidget {
   List<DocumentSnapshot> list;
   Member user;
@@ -387,6 +388,7 @@ class ListItem extends StatefulWidget {
 class _ListItemState extends State<ListItem> {
   var _repository = Repository();
   bool _isLiked = false;
+  // ignore: unused_field
   Future<List<DocumentSnapshot>> _future;
 
   Widget commentWidget(DocumentReference reference) {

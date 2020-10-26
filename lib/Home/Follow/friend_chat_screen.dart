@@ -87,7 +87,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                 )
               : Column(
                   children: <Widget>[
-                    ChatMessagesListWidget(),
+                    chatMessagesListWidget(),
                     chatInputWidget(),
                     SizedBox(
                       height: 20.0,
@@ -102,6 +102,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
       height: 55.0,
       margin: const EdgeInsets.symmetric(horizontal: 8.0),
       child: TextFormField(
+        // ignore: missing_return
         validator: (String input) {
           if (input.isEmpty) {
             return "Please enter message";
@@ -206,6 +207,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
         timestamp: FieldValue.serverTimestamp(),
         type: 'text');
     print(
+        // ignore: unnecessary_brace_in_string_interps
         "receiverUid: ${widget.receiverUid} , senderUid : ${_senderuid} , message: ${text}");
     print(
         "timestamp: ${DateTime.now().millisecond}, type: ${text != null ? 'text' : 'image'}");
@@ -215,7 +217,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
     });
   }
 
-  Widget ChatMessagesListWidget() {
+  Widget chatMessagesListWidget() {
     print("SENDERUID : $_senderuid");
     return Flexible(
       child: StreamBuilder(

@@ -50,7 +50,7 @@ class _AgominChatState extends State<AgominChat> {
             child: Column(
           children: <Widget>[
             //채팅창 리스트
-            Flexible(child: ChatList()),
+            Flexible(child:chatList()),
             //구분선
             Divider(
               height: 3.0,
@@ -66,7 +66,7 @@ class _AgominChatState extends State<AgominChat> {
   }
 
   //채팅
-  Widget ChatList() => ListView.builder(
+  Widget chatList() => ListView.builder(
       reverse: true,
       //최신 응답이 하단에 추가됨
       padding: EdgeInsets.all(10.0),
