@@ -24,9 +24,9 @@ class _FollowFeedScreenState extends State<FollowFeedScreen> {
   Member user, currentUser, followingUser;
   IconData icon;
   Color color;
-  List<Member> usersList = List<Member>();
   Future<List<DocumentSnapshot>> _future;
   bool _isLiked = false;
+  List<Member> usersList = List<Member>();
   List<String> followingUIDs = List<String>();
 
   @override

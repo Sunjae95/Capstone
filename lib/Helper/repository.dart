@@ -84,6 +84,8 @@ class Repository {
   Future<List<Member>> fetchAllUsers(User user) =>
       _firebaseProvider.fetchAllUsers(user);
 
+  Future<List<Member>> fetchFollowUsers(User user) =>
+      _firebaseProvider.fetchFollowUsers(user);
 
   void uploadImageMsgToDb(String url, String receiverUid, String senderuid) =>
       _firebaseProvider.uploadImageMsgToDb(url, receiverUid, senderuid);

@@ -16,7 +16,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   var _repository = Repository();
-  List<DocumentSnapshot> list = List<DocumentSnapshot>();
+  List<DocumentSnapshot> list = List<DocumentSnapshot>(); //모든유저 post정보
   Member _user = Member();
   Member currentUser;
   List<Member> usersList = List<Member>();
@@ -24,21 +24,25 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
+    //현재 유저 불러오기
     _repository.getCurrentUser().then((user) {
       _user.uid = user.uid;
       _user.displayName = user.displayName;
       _user.photoUrl = user.photoURL;
+      //currentUser에 uid업데이트
       _repository.fetchUserDetailsById(user.uid).then((user) {
         setState(() {
           currentUser = user;
         });
       });
       print("USER : ${user.displayName}");
+      //자신빼고 모든 유저 post불러오기
       _repository.retrievePosts(user).then((updatedList) {
         setState(() {
           list = updatedList;
         });
       });
+      //DocumentSnapShot에서 Member객체로 바꿔줌
       _repository.fetchAllUsers(user).then((list) {
         setState(() {
           usersList = list;
@@ -88,7 +92,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 height: 125.0,
                 fit: BoxFit.cover,
               ),
-              onTap: () {
+              onTap: () {   //클릭시 다른유저 피드로 이동
                 print("SNAPSHOT : ${list[index].reference.path}");
                 Navigator.push(
                     context,

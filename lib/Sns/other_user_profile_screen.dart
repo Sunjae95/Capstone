@@ -158,7 +158,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         appBar: AppBar(
           backgroundColor: new Color(0xfff8faf8),
           elevation: 1,
-          title: Text('Profile'),
+          centerTitle: true,
+          title: Text(
+            'FeedProfile',
+            style: TextStyle(color: Colors.black),
+          ),
         ),
         body: _user != null
             ? ListView(

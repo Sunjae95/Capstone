@@ -13,7 +13,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import '../Sns/comments_screen.dart';
-import 'edit_profile_screen.dart';
 import '../Helper/like.dart';
 import '../Sns/likes_screen.dart';
 
@@ -101,7 +100,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             )),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: Column(
                           children: <Widget>[
                             Row(
@@ -174,36 +173,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                               ],
                             ),
-                            GestureDetector(
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 12.0, left: 20.0, right: 20.0),
-                                child: Container(
-                                  width: 210.0,
-                                  height: 30.0,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      border: Border.all(color: Colors.grey)),
-                                  child: Center(
-                                    child: Text('Edit Profile',
-                                        style: TextStyle(color: Colors.black)),
-                                  ),
-                                ),
-                              ),
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: ((context) =>
-                                            EditProfileScreen(
-                                                photoUrl: _user.photoUrl,
-                                                email: _user.email,
-                                                bio: _user.bio,
-                                                name: _user.displayName,
-                                                phone: _user.phone))));
-                              },
-                            )
+                            // GestureDetector(
+                            //   child: Padding(
+                            //     padding: const EdgeInsets.only(
+                            //         top: 12.0, left: 20.0, right: 20.0),
+                            //     child: Container(
+                            //       width: 210.0,
+                            //       height: 30.0,
+                            //       decoration: BoxDecoration(
+                            //           color: Colors.white,
+                            //           borderRadius: BorderRadius.circular(4.0),
+                            //           border: Border.all(color: Colors.grey)),
+                            //       child: Center(
+                            //         child: Text('Edit Profile',
+                            //             style: TextStyle(color: Colors.black)),
+                            //       ),
+                            //     ),
+                            //   ),
+                            //   onTap: () {
+                            //     Navigator.push(
+                            //         context,
+                            //         MaterialPageRoute(
+                            //             builder: ((context) =>
+                            //                 EditProfileScreen(
+                            //                     photoUrl: _user.photoUrl,
+                            //                     email: _user.email,
+                            //                     bio: _user.bio,
+                            //                     name: _user.displayName,
+                            //                     phone: _user.phone))));
+                            //   },
+                            // )
                           ],
                         ),
                       )

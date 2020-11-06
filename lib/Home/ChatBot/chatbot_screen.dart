@@ -46,23 +46,29 @@ class _AgominChatState extends State<AgominChat> {
         body: Container(
             //밑에서 얼마나 띄어져있는지
             //padding: EdgeInsets.only(bottom: 10.0),
-
-            child: Column(
-          children: <Widget>[
-            //채팅창 리스트
-            Flexible(child:chatList()),
-            //구분선
-            Divider(
-              height: 3.0,
-            ),
-            //입력칸
-            Container(
+            decoration: BoxDecoration(
               color: Colors.white,
-              //margin: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: inputText(),
+              image: DecorationImage(
+                image: AssetImage('assets/chatbotBackground.png'),
+                fit: BoxFit.cover,
+              ),
             ),
-          ],
-        )));
+            child: Column(
+              children: <Widget>[
+                //채팅창 리스트
+                Flexible(child: chatList()),
+                //구분선
+                Divider(
+                  height: 3.0,
+                ),
+                //입력칸
+                Container(
+                  color: Colors.white,
+                  //margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: inputText(),
+                ),
+              ],
+            )));
   }
 
   //채팅

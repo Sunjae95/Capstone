@@ -1,6 +1,7 @@
 import 'package:capstone_agomin/Helper/repository.dart';
 import 'package:capstone_agomin/Helper/user.dart';
 import 'package:capstone_agomin/Home/Follow/friend_chat_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -12,20 +13,43 @@ class _ChatScreenState extends State<ChatScreen> {
   var _repository = Repository();
   // ignore: unused_field
   Member _users = Member();
+  Member me;
+  Member user, followingUser;
   List<Member> usersList = List<Member>();
-
+  List<String> followingUIDs = List<String>();
   @override
   void initState() {
+    // _repository.getCurrentUser().then((user) {
+    //   print("USER : ${user.displayName}");
+    //   //follower load
+    //   _repository.fetchFollowUsers(user).then((updatedList) {
+    //     setState(() {
+    //       usersList = updatedList.cast<Member>();
+    //     });
+    //   });
+    // });
     super.initState();
-    _repository.getCurrentUser().then((user) {
-      print("USER : ${user.displayName}");
-      //follower load
-      _repository.fetchAllUsers(user).then((updatedList) {
-        setState(() {
-          usersList = updatedList.cast<Member>();
-        });
-      });
+    followee();
+  }
+
+  Future<void> followee() async {
+    User currentUser = await _repository.getCurrentUser();
+    //User객체에서 Member객체로 전환
+    Member user = await _repository.fetchUserDetailsById(currentUser.uid);
+    setState(() {
+      this.me = user;
     });
+    //여기부터 시작
+    followingUIDs = await _repository.fetchFollowingUids(currentUser);
+
+    for (var i = 0; i < followingUIDs.length; i++) {
+      print("String 형식의 List배열 : ${followingUIDs[i]}");
+      this.user = (await _repository.fetchUserDetailsById(followingUIDs[i]));
+      print("user List에 등록: ${this.user.uid}");
+      usersList.add(this.user);
+      print("User displayname: ${usersList[i].displayName}");
+      print("User uid:${usersList[i].uid}");
+    }
   }
 
   @override
@@ -35,16 +59,16 @@ class _ChatScreenState extends State<ChatScreen> {
           backgroundColor: new Color(0xfff8faf8),
           centerTitle: true,
           title: Text('Followers', style: TextStyle(color: Colors.black)),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                showSearch(
-                    context: context,
-                    delegate: ChatSearch(usersList: usersList));
-              },
-            )
-          ],
+          // actions: <Widget>[
+          //   IconButton(
+          //     icon: Icon(Icons.search),
+          //     onPressed: () {
+          //       showSearch(
+          //           context: context,
+          //           delegate: ChatSearch(usersList: usersList));
+          //     },
+          //   )
+          // ],
         ),
         //follower load
         body: ListView.builder(
@@ -107,7 +131,6 @@ class ChatSearch extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-  
     return null;
   }
 

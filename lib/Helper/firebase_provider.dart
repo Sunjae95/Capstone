@@ -163,6 +163,7 @@ class FirebaseProvider {
     List<DocumentSnapshot> updatedList = List<DocumentSnapshot>();
     QuerySnapshot querySnapshot;
     QuerySnapshot snapshot = await _firestore.collection("users").get();
+
     for (int i = 0; i < snapshot.docs.length; i++) {
       if (snapshot.docs[i].id != user.uid) {
         list.add(snapshot.docs[i]);
@@ -211,9 +212,11 @@ class FirebaseProvider {
     return uid;
   }
 
+  //uid로 member로 적재
   Future<Member> fetchUserDetailsById(String uid) async {
     DocumentSnapshot documentSnapshot =
         await _firestore.collection("users").doc(uid).get();
+    print(documentSnapshot.data());
     return Member.fromMap(documentSnapshot.data());
   }
 
@@ -337,12 +340,30 @@ class FirebaseProvider {
     for (var i = 0; i < querySnapshot.docs.length; i++) {
       if (querySnapshot.docs[i].id != user.uid) {
         userList.add(Member.fromMap(querySnapshot.docs[i].data()));
-
-        //userList.add(querySnapshot.documents[i].data[User.fromMap(mapData)]);
       }
     }
 
     print("USERSLIST : ${userList.length}");
+    return userList;
+  }
+
+  Future<List<Member>> fetchFollowUsers(User user) async {
+    List<Member> userList = List<Member>();
+
+    QuerySnapshot querySnapshot = await _firestore
+        .collection("users")
+        .doc("${user.uid}")
+        .collection("followers")
+        .get();
+    for (int i = 0; i < querySnapshot.docs.length; i++) {}
+    for (var i = 0; i < querySnapshot.docs.length; i++) {
+      if (querySnapshot.docs[i].id != user.uid) {
+        userList.add(Member.fromMap(querySnapshot.docs[i].data()));
+        //userList.add(querySnapshot.documents[i].data[User.fromMap(mapData)]);
+      }
+    }
+
+    // print("USERSLIST : ${userList.length}");
     return userList;
   }
 
@@ -450,7 +471,7 @@ class FirebaseProvider {
     }
 
     for (var i = 0; i < followingUIDs.length; i++) {
-      print("DDDD : ${followingUIDs[i]}");
+      print("following Uid List String객체 : ${followingUIDs[i]}");
     }
     return followingUIDs;
   }

@@ -1,6 +1,7 @@
 import 'package:capstone_agomin/Helper/repository.dart';
 import 'package:capstone_agomin/Helper/user.dart';
 import 'package:capstone_agomin/Home/ChatBot/chatbot_screen.dart';
+import 'package:capstone_agomin/Profile/edit_profile_screen.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -46,7 +47,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: new Color(0xfff8faf8),
+        backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
           'Agomin',
@@ -104,7 +105,14 @@ class _ActivityScreenState extends State<ActivityScreen> {
         ),
       ),
       body: _user != null
-          ? Center(
+          ? Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                image: DecorationImage(
+                  image: AssetImage('assets/homeColor.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
               child: Column(
                 children: [
                   Row(
@@ -149,8 +157,9 @@ class _ActivityScreenState extends State<ActivityScreen> {
                       padding: const EdgeInsets.only(top: 20.0, left: 20.0),
                       child: Container(
                           width: 200.0,
-                          height: 200.0,
+                          height: 190.0,
                           decoration: BoxDecoration(
+                            color: Colors.white,
                             borderRadius: BorderRadius.circular(120.0),
                             image: DecorationImage(
                                 image: _user.photoUrl.isEmpty
@@ -160,12 +169,32 @@ class _ActivityScreenState extends State<ActivityScreen> {
                           )),
                     ),
                   ),
-                  Center(
-                    child: Text(_user.displayName,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20.0)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        child: Text(_user.displayName,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.0)),
+                      ),
+                      IconButton(
+                        iconSize: 20.0,
+                        icon: Icon(Icons.account_box),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) => EditProfileScreen(
+                                      photoUrl: _user.photoUrl,
+                                      email: _user.email,
+                                      bio: _user.bio,
+                                      name: _user.displayName,
+                                      phone: _user.phone))));
+                        },
+                      ),
+                    ],
                   ),
                   Center(
                     // padding: const EdgeInsets.only(left: 25.0, top: 10.0),
