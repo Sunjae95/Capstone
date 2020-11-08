@@ -1,6 +1,7 @@
 import 'package:capstone_agomin/Helper/repository.dart';
 import 'package:capstone_agomin/Helper/user.dart';
 import 'package:capstone_agomin/Home/ChatBot/chatbot_screen.dart';
+import 'package:capstone_agomin/Home/GPS/GpsMain.dart';
 import 'package:capstone_agomin/Profile/edit_profile_screen.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,7 +11,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'Animation/animation_screen.dart';
 import 'Follow/friend_screen.dart';
-import 'GPS/gps_screen.dart';
 
 class ActivityScreen extends StatefulWidget {
   @override
@@ -233,7 +233,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: ((context) => GPS())));
+                                    builder: ((context) => GpsMain())));
                           }),
                     ],
                   ),
