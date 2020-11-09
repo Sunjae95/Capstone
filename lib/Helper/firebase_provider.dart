@@ -216,7 +216,7 @@ class FirebaseProvider {
   Future<Member> fetchUserDetailsById(String uid) async {
     DocumentSnapshot documentSnapshot =
         await _firestore.collection("users").doc(uid).get();
-    print(documentSnapshot.data());
+    
     return Member.fromMap(documentSnapshot.data());
   }
 
@@ -468,10 +468,6 @@ class FirebaseProvider {
 
     for (var i = 0; i < querySnapshot.docs.length; i++) {
       followingUIDs.add(querySnapshot.docs[i].id);
-    }
-
-    for (var i = 0; i < followingUIDs.length; i++) {
-      print("following Uid List String객체 : ${followingUIDs[i]}");
     }
     return followingUIDs;
   }

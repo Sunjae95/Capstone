@@ -55,57 +55,62 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     print("INSIDE BUILD");
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: new Color(0xfff8faf8),
-        centerTitle: true,
-        title: Text(
-          'Agomin',
-          style: TextStyle(color: Colors.black),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.search,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              showSearch(
-                  context: context, delegate: DataSearch(userList: usersList));
-            },
-          )
-        ],
-      ),
-      body: GridView.builder(
-          //  shrinkWrap: true,
-          itemCount: list.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3, crossAxisSpacing: 4.0, mainAxisSpacing: 4.0),
-          itemBuilder: ((context, index) {
-            print("LIST : ${list.length}");
-            return GestureDetector(
-              child: CachedNetworkImage(
-                imageUrl: list[index].data()['imgUrl'],
-                placeholder: ((context, s) => Center(
-                      child: CircularProgressIndicator(),
-                    )),
-                width: 125.0,
-                height: 125.0,
-                fit: BoxFit.cover,
+        appBar: AppBar(
+          elevation: 0.0,
+          backgroundColor: Color.fromRGBO(222, 235, 247, 1.0),
+          centerTitle: true,
+          title: Text(
+            'Agomin',
+            style: TextStyle(color: Colors.black),
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.search,
+                color: Colors.black,
               ),
-              onTap: () {   //클릭시 다른유저 피드로 이동
-                print("SNAPSHOT : ${list[index].reference.path}");
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: ((context) => PostDetailScreen(
-                              user: _user,
-                              currentuser: currentUser,
-                              documentSnapshot: list[index],
-                            ))));
+              onPressed: () {
+                showSearch(
+                    context: context,
+                    delegate: DataSearch(userList: usersList));
               },
-            );
-          })),
-    );
+            )
+          ],
+        ),
+        body: Container(
+          child: GridView.builder(
+              itemCount: list.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 4.0,
+                  mainAxisSpacing: 4.0),
+              itemBuilder: ((context, index) {
+                print("LIST : ${list.length}");
+                return GestureDetector(
+                  child: CachedNetworkImage(
+                    imageUrl: list[index].data()['imgUrl'],
+                    placeholder: ((context, s) => Center(
+                          child: CircularProgressIndicator(),
+                        )),
+                    width: 125.0,
+                    height: 125.0,
+                    fit: BoxFit.cover,
+                  ),
+                  onTap: () {
+                    //클릭시 다른유저 피드로 이동
+                    print("SNAPSHOT : ${list[index].reference.path}");
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) => PostDetailScreen(
+                                  user: _user,
+                                  currentuser: currentUser,
+                                  documentSnapshot: list[index],
+                                ))));
+                  },
+                );
+              })),
+        ));
   }
 }
 

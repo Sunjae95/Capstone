@@ -63,7 +63,8 @@ class _HomeScreenState extends State<HomeScreen> {
         onPageChanged: onPageChanged,
       ),
       bottomNavigationBar: new CupertinoTabBar(
-        activeColor: Colors.orange,
+        backgroundColor: Color.fromRGBO(222, 235, 247, 1.0),
+        // activeColor: Colors.orange,
         items: <BottomNavigationBarItem>[
           new BottomNavigationBarItem(
               icon: new Icon(Icons.star,
