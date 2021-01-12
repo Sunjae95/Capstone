@@ -11,9 +11,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   var _repository = Repository();
-  // ignore: unused_field
-  Member _users = Member();
-  Member me;
+
   Member user, followingUser;
   List<Member> usersList = List<Member>();
   List<String> followingUIDs = List<String>();
@@ -29,74 +27,65 @@ class _ChatScreenState extends State<ChatScreen> {
     //   });
     // });
     super.initState();
-    followee();
-  }
-
-  Future<void> followee() async {
-    User currentUser = await _repository.getCurrentUser();
-    //User객체에서 Member객체로 전환
-    Member user = await _repository.fetchUserDetailsById(currentUser.uid);
-    setState(() {
-      this.me = user;
+    _repository.getCurrentUser().then((user) {
+      _repository.fetchFollowingUids(user).then((followingUIDs) {
+        for (var i = 0; i < followingUIDs.length; i++) {
+          _repository.fetchUserDetailsById(followingUIDs[i]).then((followers) {
+            setState(() {
+              usersList.add(followers);
+            });
+          });
+        }
+      });
     });
-    //여기부터 시작
-    followingUIDs = await _repository.fetchFollowingUids(currentUser);
-
-    for (var i = 0; i < followingUIDs.length; i++) {
-      print("String 형식의 List배열 : ${followingUIDs[i]}");
-      this.user = (await _repository.fetchUserDetailsById(followingUIDs[i]));
-      print("user List에 등록: ${this.user.uid}");
-      usersList.add(this.user);
-      print("User displayname: ${usersList[i].displayName}");
-      print("User uid:${usersList[i].uid}");
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: new Color(0xfff8faf8),
-          centerTitle: true,
-          title: Text('Followers', style: TextStyle(color: Colors.black)),
-          // actions: <Widget>[
-          //   IconButton(
-          //     icon: Icon(Icons.search),
-          //     onPressed: () {
-          //       showSearch(
-          //           context: context,
-          //           delegate: ChatSearch(usersList: usersList));
-          //     },
-          //   )
-          // ],
-        ),
-        //follower load
-        body: ListView.builder(
-          itemCount: usersList.length,
-          itemBuilder: ((context, index) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: ((context) => ChatDetailScreen(
-                                photoUrl: usersList[index].photoUrl,
-                                name: usersList[index].displayName,
-                                receiverUid: usersList[index].uid,
-                              ))));
-                },
-                child: ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage: NetworkImage(usersList[index].photoUrl),
-                  ),
-                  title: Text(usersList[index].displayName),
-                ),
-              ),
-            );
-          }),
-        ));
+      body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/followerBackground.png'),
+              fit: BoxFit.fill,
+            ),
+          ),
+          child: Column(children: [
+            Expanded(
+              flex: 1,
+              child: SizedBox(),
+            ),
+            Expanded(
+                flex: 4,
+                child: ListView.builder(
+                  itemCount: usersList.length,
+                  itemBuilder: ((context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) => ChatDetailScreen(
+                                        photoUrl: usersList[index].photoUrl,
+                                        name: usersList[index].displayName,
+                                        receiverUid: usersList[index].uid,
+                                      ))));
+                        },
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            backgroundImage:
+                                NetworkImage(usersList[index].photoUrl),
+                          ),
+                          title: Text(usersList[index].displayName),
+                        ),
+                      ),
+                    );
+                  }),
+                )),
+          ])),
+    );
   }
 }
 

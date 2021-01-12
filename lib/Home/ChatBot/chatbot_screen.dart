@@ -38,11 +38,12 @@ class _AgominChatState extends State<AgominChat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: new Color(0xfff8faf8),
-          centerTitle: true,
-          title: Text('챗봇', style: TextStyle(color: Colors.black)),
-        ),
+        // appBar: AppBar(
+        //   elevation: 0.0,
+        //   backgroundColor: Color.fromRGBO(222, 235, 247, 1.0),
+        //   centerTitle: true,
+        //   title: Text('챗봇', style: TextStyle(color: Colors.black)),
+        // ),
         body: Container(
             //밑에서 얼마나 띄어져있는지
             //padding: EdgeInsets.only(bottom: 10.0),

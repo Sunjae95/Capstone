@@ -67,7 +67,8 @@ class _FollowFeedScreenState extends State<FollowFeedScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: new Color(0xfff8faf8),
+        elevation: 0.0,
+        backgroundColor: Color.fromRGBO(222, 235, 247, 1.0),
         centerTitle: true,
         title: Text(
           'Agomin',
@@ -75,8 +76,8 @@ class _FollowFeedScreenState extends State<FollowFeedScreen> {
         ),
       ),
       body: currentUser != null
-          ? Padding(
-              padding: const EdgeInsets.only(top: 4.0),
+          ? Container(
+              color: Colors.white,
               child: postImagesWidget(),
             )
           : Center(
