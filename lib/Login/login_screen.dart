@@ -15,45 +15,52 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: new Color(0xfff8faf8),
-        centerTitle: true,
-        elevation: 1.0,
-        title: Text(
-          'Agomin',
-          style: TextStyle(color: Colors.black),
-        ),
-      ),
-      body: Center(
-        child: GestureDetector(
-          child: Container(
-            width: 250.0,
-            height: 50.0,
-            decoration: BoxDecoration(
-                color: Color(0xFF4285F4),
-                border: Border.all(color: Colors.black)),
-            child: Row(
-              children: <Widget>[
-                Image.asset('assets/google_icon.jpg'),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20.0),
-                  child: Text('Sign in with Google',
-                      style: TextStyle(color: Colors.white, fontSize: 16.0)),
-                )
-              ],
+      body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/loginBackground.png'),
+              fit: BoxFit.fill,
             ),
           ),
-          onTap: () {
-            _repository.signIn().then((user) {
-              if (user != null) {
-                authenticateUser(user);
-              } else {
-                print("Error");
-              }
-            });
-          },
-        ),
-      ),
+          child: Column(
+            children: [
+              Expanded(flex: 4, child: SizedBox()),
+              Expanded(
+                  flex: 1,
+                  child: Container(
+                    padding: EdgeInsets.only(
+                        left: 30.0, right: 30.0, top: 10.0, bottom: 10.0),
+                    child: GestureDetector(
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Color(0xFF4285F4),
+                            border: Border.all(color: Colors.black)),
+                        child: Row(
+                          children: <Widget>[
+                            Image.asset('assets/google_icon.jpg'),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20.0),
+                              child: Text('Sign in with Google',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16.0)),
+                            )
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        _repository.signIn().then((user) {
+                          if (user != null) {
+                            authenticateUser(user);
+                          } else {
+                            print("Error");
+                          }
+                        });
+                      },
+                    ),
+                  )),
+              Expanded(flex: 2, child: SizedBox()),
+            ],
+          )),
     );
   }
 

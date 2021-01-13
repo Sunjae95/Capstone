@@ -57,7 +57,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
 
-  flutter_form_builder:
+  flutter_form_builder: ^3.14.0-alpha.1
   http:
   local_auth: ^0.6.2+3
 
@@ -97,20 +97,30 @@ flutter:
   assets:   #json 파일가져와서 API 연동해야됨
     - assets/agomin-cyws-55efe8b61e18.json
     - assets/agomin.jpg
-    - assets/loading.gif
+  
     - assets/logo.jpg
-    - assets/insta_logo.png
     - assets/google_icon.jpg
     - assets/no_image.png
     - assets/blankimage.png
     - assets/click.mp3
+    - assets/dancingMusic.m4a
+    - assets/sleepMusic.m4a
     - assets/follower.png
     - assets/animation.png
     - assets/chatbot.png
     - assets/GPS.png
     - assets/chatbotBackground.png
+    - assets/followerBackground.png
+    - assets/loginBackground.png
     - assets/homeColor.png
     - assets/dog_icon.png
+    - assets/UploadBackground.png
+    - assets/clicker.png
+    - assets/dancingMusic.png
+    - assets/sleepMusic.png
+    - assets/loadPicture.png
+    - assets/takePicture.png
+    - assets/animaitionBackground.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

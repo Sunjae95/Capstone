@@ -89,29 +89,91 @@ class _UploadScreenState extends State<UploadScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: new Color(0xfff8faf8),
-        centerTitle: true,
-        title: Text(
-          'Agomin',
-          style: TextStyle(color: Colors.black),
+        appBar: AppBar(
+          elevation: 0.0,
+          backgroundColor: Color.fromRGBO(222, 235, 247, 1.0),
+          centerTitle: true,
+          title: Text(
+            'Agomin',
+            style: TextStyle(color: Colors.black),
+          ),
         ),
-      ),
-      body: Center(
-          child: RaisedButton.icon(
-        splashColor: Colors.yellow,
-        shape: StadiumBorder(),
-        color: Colors.black,
-        label: Text(
-          'Upload Image',
-          style: TextStyle(color: Colors.white),
-        ),
-        icon: Icon(
-          Icons.cloud_upload,
-          color: Colors.white,
-        ),
-        onPressed: _showImageDialog,
-      )),
-    );
+        body: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/UploadBackground.png'),
+                fit: BoxFit.fill,
+              ),
+            ),
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: SizedBox(),
+                ),
+                Expanded(
+                    flex: 1,
+                    child: Container(
+                        child: ConstrainedBox(
+                            constraints: BoxConstraints.expand(),
+                            child: FlatButton(
+                                onPressed: () {
+                                  _pickImage('Camera').then((selectedImage) {
+                                    setState(() {
+                                      imageFile = selectedImage;
+                                    });
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: ((context) =>
+                                                UploadDetailPhotoScreen(
+                                                  imageFile: imageFile,
+                                                ))));
+                                  });
+                                },
+                                padding: EdgeInsets.all(0.0),
+                                child: Image.asset(
+                                  'assets/takePicture.png',
+                                ))))),
+                Expanded(
+                    flex: 1,
+                    child: Container(
+                        child: ConstrainedBox(
+                            constraints: BoxConstraints.expand(),
+                            child: FlatButton(
+                                onPressed: () {
+                                  _pickImage('Gallery').then((selectedImage) {
+                                    setState(() {
+                                      imageFile = selectedImage;
+                                    });
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: ((context) =>
+                                                UploadDetailPhotoScreen(
+                                                  imageFile: imageFile,
+                                                ))));
+                                  });
+                                },
+                                padding: EdgeInsets.all(0.0),
+                                child:
+                                    Image.asset('assets/loadPicture.png'))))),
+              ],
+            )));
   }
 }
+
+// RaisedButton.icon(
+//             splashColor: Colors.yellow,
+//             shape: StadiumBorder(),
+//             color: Colors.black,
+//             label: Text(
+//               'Upload Image',
+//               style: TextStyle(color: Colors.white),
+//             ),
+//             icon: Icon(
+//               Icons.cloud_upload,
+//               color: Colors.white,
+//             ),
+//             onPressed: _showImageDialog,
+//           )

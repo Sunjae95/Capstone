@@ -56,7 +56,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: new Color(0xfff8faf8),
+          elevation: 0.0,
+          backgroundColor: Color.fromRGBO(222, 235, 247, 1.0),
           centerTitle: true,
           title: Text(
             'Agomin',
