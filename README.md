@@ -13,7 +13,7 @@ dialogflow
 
 | 김현우 | 이선재 | 박민욱 |
 | :---: | :---: | :---: |
-|<img src ="../image/hyeonwoo.png" width=100><br>[Github](https://github.com/KimHyeonWoo-kor) | <img src ="../image/seonjae.jpg" width=100><br>[github](https://github.com/Sunjae95) | <img src="../image/minwook.png" width=100><br>[Github](https://github.com/pmw0303) |  
+|<img src ="https://github.com/Sunjae95/Capstone/blob/master/image/hyeonwoo.png" width=100><br>[Github](https://github.com/KimHyeonWoo-kor) | <img src ="https://github.com/Sunjae95/Capstone/blob/master/image/seonjae.jpg" width=100><br>[github](https://github.com/Sunjae95) | <img src="https://github.com/Sunjae95/Capstone/blob/master/image/minwook.png" width=100><br>[Github](https://github.com/pmw0303) |  
 | | |
 
 
